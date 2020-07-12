@@ -1,0 +1,155 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+
+</head>
+<body class="bg-dark">
+    <div class="logo col-6">
+        <img src={% static "noorani.JPG" %}></img>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <img src={% static "curry_for_all.JPG" %}></img>
+                    <br><br><br>
+                </div>
+                {% comment %} INSERT HERE! {% endcomment %}
+                <div class="card-deck mb-3 text-center bg-dark">
+                    <div class="card mb-4 shadow-sm bg-dark">
+                        <div class="card-header">
+                            <img class="card-img-top" src={% static "ground_beef.JPG" %}>
+                        </div>
+                        <div class="card-body bg-dark">
+                            <ul class="list-unstyled mt-3 mb-4 text-white">
+                                <li>Ground Beef Curry</li>
+                                <li>$1.49</li>
+                            </ul>
+                            <form action="/product/add" method="POST">
+                                <select option="Quanitity">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                                <button type="submit" class="btn btn-danger">ADD</button>
+                                <input type="hidden" id="name" name="name" value="Ground Beef Curry"> 
+                                <input type="hidden" id="price" name="price" value="$1.49">     
+                            </form>
+                        </div>
+                    </div>      
+                </div> 
+                <div class="card-deck mb-3 text-center bg-dark">
+                    <div class="card mb-4 shadow-sm bg-dark">
+                        <div class="card-header">
+                            <img class="card-img-top" src={% static "chicken.JPG" %}>
+                        </div>
+                        <div class="card-body bg-dark">
+                            <ul class="list-unstyled mt-3 mb-4 text-white">
+                                <li>Chicken Curry</li>
+                                <li>$1.49</li>
+                            </ul>
+                            <form action="/product/add" method="POST">
+                                <select option="Quanitity">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                                <button type="submit" class="btn btn-danger">ADD</button>
+                                <input type="hidden" id="name" name="name" value="Chicken Curry"> 
+                                <input type="hidden" id="price" name="price" value="$1.49">     
+                            </form>
+                        </div>
+                    </div>      
+                </div> 
+                <div class="card-deck mb-3 text-center bg-dark">
+                    <div class="card mb-4 shadow-sm bg-dark">
+                        <div class="card-header">
+                            <img class="card-img-top" src={% static "vegetable.JPG" %}>
+                        </div>
+                        <div class="card-body bg-dark">
+                            <ul class="list-unstyled mt-3 mb-4 text-white">
+                                <li>Vegetable Curry</li>
+                                <li>$1.49</li>
+                            </ul>
+                            <form action="/product/add" method="POST">
+                                <select option="Quanitity">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                                <button type="submit" class="btn btn-danger">ADD</button>
+                                <input type="hidden" id="name" name="name" value="Vegetable Curry"> 
+                                <input type="hidden" id="price" name="price" value="$1.49">     
+                            </form>
+                        </div>
+                    </div>      
+                </div> 
+                <div class="card-deck mb-3 text-center bg-dark">
+                    <div class="card mb-4 shadow-sm bg-dark">
+                        <div class="card-header">
+                            <img class="card-img-top" src={% static "potato.JPG" %}>
+                        </div>
+                        <div class="card-body bg-dark">
+                            <ul class="list-unstyled mt-3 mb-4 text-white">
+                                <li>Potato Curry</li>
+                                <li>$1.49</li>
+                            </ul>
+                            <form action="/product/add" method="POST">
+                                <select option="Quanitity">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                                <button type="submit" class="btn btn-danger">ADD</button>
+                                <input type="hidden" id="name" name="name" value="Potato Curry"> 
+                                <input type="hidden" id="price" name="price" value="$1.49">     
+                            </form>
+                        </div>
+                    </div>      
+                </div>
+                <div class="card-deck mb-3 text-center bg-dark">
+                    <div class="card mb-4 shadow-sm bg-dark">
+                        <div class="card-header">
+                            <img class="card-img-top" src={% static "butter_chicken.JPG" %}>
+                        </div>
+                        <div class="card-body bg-dark">
+                            <ul class="list-unstyled mt-3 mb-4 text-white">
+                                <li>Butter Chicken Curry</li>
+                                <li>$1.49</li>
+                            </ul>
+                            <form action="/product/add" method="POST">
+                                <select option="Quanitity">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                                <button type="submit" class="btn btn-danger">ADD</button>
+                                
+                                <input type="hidden" id="name" name="name" value="Butter Chicken Curry"> 
+                                <input type="hidden" id="price" name="price" value="$1.49">     
+                            </form>
+                        </div>
+                    </div>      
+                </div>
+
+            </div> 
+        </div>
+    </div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>    
+</body>
+</html>
