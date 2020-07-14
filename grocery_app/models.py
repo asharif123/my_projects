@@ -1,5 +1,8 @@
 import bcrypt, re
 from django.db import models
+from datetime import datetime
+now = datetime.now()
+
 
 class Users_Manager(models.Manager):
 
@@ -26,6 +29,10 @@ class Users_Manager(models.Manager):
 
         if len(postData["State"]) < 3:
             errors["State"] = ("State should have at least 3 characters!")
+
+        if len(postData["Zip"]) != 5:
+            errors["Zip"] = ("Zipcode must have at least 5 digits!")
+
 
         if len(postData["Password"]) < 8:
             errors["Password"] = ("Password must be at least 8 characters!")
@@ -59,8 +66,35 @@ class Users_Manager(models.Manager):
 
         return errors
 
+class Cards_Manager(models.Manager):
+    def card_validator(self,postData):
+        errors = {}
+        if len(postData["cardname"]) < 2:
+            errors["cardname"] = "Name must have at least 2 characters!"
 
+        if not (postData["cardname"].isalpha()):
+            errors["cardname"]: "Card name must have all letters!"
 
+        if len(postData["cardnumber"]) != 16:
+            errors["cardnumber"] = "Credit Card number must have 16 digits!"
+
+        if not (postData["cardnumber"]).isnumeric():
+            errors["cardnumber"] = "Card Number must have all numbers!"
+
+        if (postData["cardexpiration"]) == "" or (postData["cardexpiration"]) == " ":
+            errors["cardexpiration"] = "Expiration date cannot be empty!"
+
+        expiration_date = datetime.strptime(postData["cardexpiration"], "%Y-%m-%d")
+        if (expiration_date < now):
+            errors["cardexpiration"] = "Expiration date must be in the future!"
+
+        if not (postData["cardcvv"]).isnumeric():
+            errors["cardcvv"] = "Card Code must have all numbers!"
+
+        if len(postData["cardcvv"]) != 3:
+            errors["cardcvv"] = "Card code must be a 3 digit code!"
+
+        return errors
 
 # Create your models here.
 class Users(models.Model):
@@ -70,6 +104,7 @@ class Users(models.Model):
     street = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
     state = models.CharField(max_length=50)
+    zipcode = models.CharField(max_length=5)
     password = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -83,4 +118,12 @@ class Products(models.Model):
     customer = models.ForeignKey(Users,related_name="products_of_user",on_delete = models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+class Card(models.Model):
+    name = models.CharField(max_length=255)
+    card_number = models.IntegerField()
+    expiration = models.DateTimeField()
+    card_code = models.IntegerField()
+    owner = models.ForeignKey(Users,related_name="cards_of_user",on_delete = models.CASCADE)
+    objects = Cards_Manager()
 

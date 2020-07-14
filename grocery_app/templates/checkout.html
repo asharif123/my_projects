@@ -16,6 +16,8 @@
       <div class="container">
         <div class="navbar col-12">
             <img src={% static "noorani.JPG" %}></img>
+
+
             <nav class="navbar navbar-expand-lg navbar-light bg-dark">
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
@@ -35,10 +37,14 @@
 
       <div class="row">
         <div class="col-md-4 order-md-2 mb-4">
-          <h4 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-white">Total Items:  {{items}}</span>
+          <h4 class="d-flex justify-content-between align-items-center mb-3"></h4>
+            {% if items > 0 %}
+              <u><a class="text-white" href="/welcome">  Add to Cart >></a></u>
+            {% endif %}
+            <br><br>
+            <h4 class="text-white">Total Items:  {{items}}</h4>
             <span class="badge badge-secondary badge-pill">{{total_products}}</span>
-          </h4>
+            <br>
           <ul class="list-group mb-3">
             {% for product in products %}
               <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -61,103 +67,54 @@
 
         </div>
         <div class="col-md-8 order-md-1">
-          <h4 class="mb-3 text-white">Billing address</h4>
-            <form class="needs-validation" novalidate>
+          <h4 class="mb-3 text-white">Billing address:</h4>
+            <p class="text-white">{{user.street}}</p>
+            <p class="text-white">{{user.city}}, {{user.state}}  {{user.zipcode}}</p> 
+            <a href="/address/edit">Edit Shipping Address</a>
+            <br><br>
+            <form action="/noorani/submit" method="post">
+              {% csrf_token %}
+              <h4 class="mb-3 text-white">Payment</h4>
+
               <div class="row">
                 <div class="col-md-6 mb-3 text-white">
-                  <label for="firstName">Full Name</label>
-                  <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
-                  <div class="invalid-feedback">
-                    Valid first name is required.
-                  </div>
+                  <label for="cardname">Name on card</label>
+                  <input type="text" class="form-control" id="cardname" name="cardname">
+                  <small class="text-muted">Full name as displayed on card</small>
+                </div>
+                <div class="col-md-6 mb-3 text-white">
+                  <label for="cardnumber">Credit card number</label>
+                  <input type="text" class="form-control" id="cardnumber" name="cardnumber">
                 </div>
               </div>
-
-
-            <div class="mb-3 text-white">
-              <label for="email">Email <span class="text-muted"></span></label>
-              <input type="email" class="form-control" id="email" placeholder="you@example.com">
-              <div class="invalid-feedback">
-                  Please enter a valid email address for shipping updates.
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="mb-3 text-white col-5">
-                <label for="Street">Street</label>
-                <input type="text" class="form-control" id="street" placeholder="Street Address">
-
-              </div>
-              <div class="col-md-4 mb-3 text-white">
-                <label for="state">State</label>
-                <select class="custom-select d-block w-100" id="state" required>
-                  <option value="">Choose...</option>
-                  <option>California</option>
-                </select>
-                <div class="invalid-feedback">
-                  Please provide a valid state.
+              <div class="row">
+                <div class="col-md-3 mb-3 text-white">
+                  <label for="cardexpiration">Expiration Date</label>
+                  <input type="date" id="cardexpiration" name="cardexpiration">
+                </div>
+                <div class="col-md-3 mb-3 text-white">
+                  <label for="cardcvv">CVV</label>
+                  <input type="text" class="form-control" id="cardcvv" name="cardcvv">
                 </div>
               </div>
-              <div class="col-md-3 mb-3 text-white">
-                <label for="zip">Zip</label>
-                <input type="text" class="form-control" id="zip" placeholder="" required>
-                <div class="invalid-feedback">
-                  Zip code required.
-                </div>
-              </div>
-            </div>
+              <hr class="mb-4">
+              <button class="btn btn-success btn-lg btn-block" type="submit">Submit Order</button>
 
-          <h4 class="mb-3 text-white">Payment</h4>
-
-          <div class="d-block my-3 text-white">
-            <div class="custom-control custom-radio">
-              <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
-              <label class="custom-control-label" for="credit">Credit card</label>
+            </form>
+            <br>
+            <div class="col-12 order-md-1 text-center">
+              <a class="text-white" href="/noorani/delete/all">Start Over</a>
             </div>
-            <div class="custom-control custom-radio">
-              <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
-              <label class="custom-control-label" for="debit">Debit card</label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 mb-3 text-white">
-              <label for="cc-name">Name on card</label>
-              <input type="text" class="form-control" id="cc-name" placeholder="" required>
-              <small class="text-muted">Full name as displayed on card</small>
-              <div class="invalid-feedback">
-                Name on card is required
-              </div>
-            </div>
-            <div class="col-md-6 mb-3 text-white">
-              <label for="cc-number">Credit card number</label>
-              <input type="text" class="form-control" id="cc-number" placeholder="" required>
-              <div class="invalid-feedback">
-                Credit card number is required
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3 mb-3 text-white">
-              <label for="cc-expiration">Expiration</label>
-              <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-              <div class="invalid-feedback">
-                Expiration date required
-              </div>
-            </div>
-            <div class="col-md-3 mb-3 text-white">
-              <label for="cc-cvv">CVV</label>
-              <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
-              <div class="invalid-feedback">
-                Security code required
-              </div>
-            </div>
-          </div>
-          <hr class="mb-4">
-          <button class="btn btn-primary btn-lg btn-block" type="submit">Checkout</button>
-
-        </form>
+            {% if messages %}
+                {% for message in messages %}
+            <ul>   
+                <strong><li class="text-white">{{ message }}</li></strong>
+            </ul>    
+                {% endfor %}
+            {% endif %}                
+ 
+        </div>
       </div>
-    </div>
 
     <footer class="my-5 pt-5 text-muted text-center text-small">
       <p class="mb-1 text-white">&copy; 2020 Noorani</p>

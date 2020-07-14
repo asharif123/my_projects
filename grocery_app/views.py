@@ -16,7 +16,7 @@ def add_account(request):
     password = request.POST['Password']
 
     pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
-    User = Users.objects.create(name=request.POST["Name"],email=request.POST["Email"],street=request.POST["Street"],city=request.POST["City"],state=request.POST["State"],password=pw_hash)
+    User = Users.objects.create(name=request.POST["Name"],email=request.POST["Email"],street=request.POST["Street"],city=request.POST["City"],state=request.POST["State"],zipcode=request.POST["Zip"],password=pw_hash)
     # Create user's id from the created database, use this to retain info when navigating to another page
     request.session['id'] = User.id
     return redirect('/welcome')
@@ -36,6 +36,7 @@ def welcome_page(request):
     if 'id' not in request.session:
         return redirect('/')
     user = Users.objects.get(id=request.session['id'])
+    
     context = {
         'products': Products.objects.all(),
         'total_products': len(user.products_of_user.all())
@@ -71,7 +72,8 @@ def checkout(request):
     context = {
         "products": products,
         "total": total,
-        "items": len(products)
+        "items": len(products),
+        "user": user
     }
 
     return render(request,'checkout.html',context)
@@ -82,3 +84,48 @@ def delete_product(request,id):
     product_to_delete = Products.objects.get(id=id)
     product_to_delete.delete()
     return redirect('/noorani/checkout')
+
+    
+
+def delete_all(request):
+    if 'id' not in request.session:
+        return redirect('/')
+
+    user = Users.objects.get(id=request.session['id'])
+    delete_products = user.products_of_user.all().delete()
+    return redirect('/welcome')
+
+def account_page(request):
+    if 'id' not in request.session:
+        return redirect('/')
+    context = {
+        "user": Users.objects.get(id=request.session['id'])
+    }
+    return render(request,'account.html',context)
+
+def submit(request):
+    if 'id' not in request.session:
+        return redirect('/')
+    errors = Card.objects.card_validator(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect('/noorani/checkout')
+
+    card = Card.objects.create(name=request.POST["cardname"],card_number=request.POST["cardnumber"],expiration=request.POST["cardexpiration"],card_code=request.POST["cardcvv"],owner=Users.objects.get(id=request.session['id']))
+    return redirect('/noorani/success')
+
+def success(request):
+    if 'id' not in request.session:
+        return redirect('/')
+    errors = Card.objects.card_validator(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect('/noorani/checkout')
+
+    context = {
+        "user": Users.objects.get(id=request.session['id'])
+    }
+
+    return render(request,'success.html',context)
