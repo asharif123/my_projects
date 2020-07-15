@@ -39,12 +39,17 @@
                     <img src={% static "curry_for_all.JPG" %}></img>
                     <br><br><br>
                 </div>
-                {% comment %} INSERT HERE! {% endcomment %}
+                {% comment %} START FOR LOOP! {% endcomment %}
                 <div class="card-deck mb-3 text-center bg-dark">
                     <div class="card mb-4 shadow-sm bg-dark">
-                        <div class="card-header">
+                        <div class="card-header text-white">
                             <img class="card-img-top" src={% static "ground_beef.JPG" %}>
+
                         </div>
+                        {% comment %} creating each product in a database (name,price,image) {% endcomment %}
+                        {% comment %} hardcode each item in database and use for loop to display {% endcomment %}
+                    {% comment %} create product class that stores name,price and picture {% endcomment %}
+                    {% comment %} quantity database stores quantity integer, and product id  {% endcomment %}
                         <div class="card-body bg-dark">
                             <ul class="list-unstyled mt-3 mb-4 text-white">
                                 <li>Ground Beef Curry</li>
@@ -64,6 +69,7 @@
                                     <option value="9">9</option>
                                     <option value="10">10</option>
                                 </select>
+
                                 <button type="submit" class="btn btn-danger">ADD</button>
                                 <input type="hidden" id="name" name="name" value="Ground Beef Curry"> 
                                 <input type="hidden" id="price" name="price" value="1.49">     

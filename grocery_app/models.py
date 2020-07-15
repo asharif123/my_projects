@@ -41,6 +41,37 @@ class Users_Manager(models.Manager):
             errors["Password"] = ("Password and Confirm password do not match!")
 
         return errors
+    def account_validator(self, postData):
+        errors = {}
+
+        if len(postData["Name"]) < 2:
+            errors["Name"] = "Name must have at least 2 characters!"
+
+        # see if email is either in correct format or in the database
+        REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
+        if not REGEX.match(postData['Email']):                
+            errors['Email'] = ("Invalid email address format!")
+
+        if len(postData["Street"]) < 5:
+            errors["Street"] = ("Street should have at least 5 characters!")
+                
+        if len(postData["City"]) < 5:
+            errors["City"] = ("City should have at least 5 characters!")
+
+        if len(postData["State"]) < 3:
+            errors["State"] = ("State should have at least 3 characters!")
+
+        if len(postData["Zip"]) != 5:
+            errors["Zip"] = ("Zipcode must have at least 5 digits!")
+
+        if len(postData["Password"]) < 8:
+            errors["Password"] = ("Password must be at least 8 characters!")
+
+        if (postData["Password"] != postData["Confirm"]):
+            errors["Password"] = ("Password and Confirm password do not match!")
+
+        return errors
+
 
     def login_validator(self,postData):
         errors = {}
@@ -69,11 +100,11 @@ class Users_Manager(models.Manager):
 class Cards_Manager(models.Manager):
     def card_validator(self,postData):
         errors = {}
-        if len(postData["cardname"]) < 2:
-            errors["cardname"] = "Name must have at least 2 characters!"
+        if len(postData["name"]) < 2:
+            errors["name"] = "Name must have at least 2 characters!"
 
-        if not (postData["cardname"].isalpha()):
-            errors["cardname"]: "Card name must have all letters!"
+        if not (postData["name"].isalpha()):
+            errors["name"]: "Card name must have all letters!"
 
         if len(postData["cardnumber"]) != 16:
             errors["cardnumber"] = "Credit Card number must have 16 digits!"
@@ -114,8 +145,11 @@ class Products(models.Model):
     name = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=5, decimal_places=2)
     quantity = models.IntegerField()
+    
     # user can have many products
     customer = models.ForeignKey(Users,related_name="products_of_user",on_delete = models.CASCADE)
+
+    # use many to many
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

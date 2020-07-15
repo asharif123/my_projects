@@ -112,20 +112,51 @@ def submit(request):
             messages.error(request, value)
         return redirect('/noorani/checkout')
 
-    card = Card.objects.create(name=request.POST["cardname"],card_number=request.POST["cardnumber"],expiration=request.POST["cardexpiration"],card_code=request.POST["cardcvv"],owner=Users.objects.get(id=request.session['id']))
+    card = Card.objects.create(name=request.POST["name"],card_number=request.POST["cardnumber"],expiration=request.POST["cardexpiration"],card_code=request.POST["cardcvv"],owner=Users.objects.get(id=request.session['id']))
     return redirect('/noorani/success')
 
 def success(request):
     if 'id' not in request.session:
         return redirect('/')
-    errors = Card.objects.card_validator(request.POST)
-    if len(errors) > 0:
-        for key, value in errors.items():
-            messages.error(request, value)
-        return redirect('/noorani/checkout')
-
     context = {
         "user": Users.objects.get(id=request.session['id'])
     }
 
     return render(request,'success.html',context)
+
+def account_info(request):
+    if 'id' not in request.session:
+        return redirect('/')
+    context = {
+        "user": Users.objects.get(id=request.session['id'])
+    }
+
+    return render(request,'account_details.html',context)
+
+def update_account(request):
+    if 'id' not in request.session:
+        return redirect('/')
+    errors = Users.objects.account_validator(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect('/account/info')
+    User_update = Users.objects.get(id=request.session['id'])
+    User_update.password = request.POST['Password']
+
+    pw_hash = bcrypt.hashpw(User_update.password.encode(), bcrypt.gensalt()).decode()
+    User_update.name = request.POST["Name"]
+    User_update.email = request.POST["Email"]
+    User_update.street = request.POST["Street"]
+    User_update.city = request.POST["City"]
+    User_update.state = request.POST["State"]
+    User_update.zip = request.POST["Zip"]
+    User_update.password = pw_hash
+    User_update.save()
+
+    # Create user's id from the created database, use this to retain info when navigating to another page
+    request.session['id'] = User_update.id
+    return redirect('/welcome')
+
+
+    
