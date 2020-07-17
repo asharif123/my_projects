@@ -36,21 +36,25 @@ def welcome_page(request):
     if 'id' not in request.session:
         return redirect('/')
     user = Users.objects.get(id=request.session['id'])
+    # product = Products.objects.create(name="Ground Beef Curry", price=1.49, image="ground_beef.JPG")
+    # product = Products.objects.create(name="Chicken Curry", price=1.49, image="chicken.JPG")
     
     context = {
-        'products': Products.objects.all(),
-        'total_products': len(user.products_of_user.all())
-
+        "products": Products.objects.all(),
+        "total_orders": len(user.orders_of_user.all())
     }
+
 
     return render(request,'welcome.html',context)
 
-def add_product(request):
+def add_order(request):
     if 'id' not in request.session:
         return redirect('/')
-
-    product = Products.objects.create(name=request.POST["name"],price=request.POST["price"],quantity=request.POST["Quantity"],customer=Users.objects.get(id=request.session['id']))
-    return redirect('/welcome')
+    product = Products.objects.get(id=request.POST["product"])
+    user = Users.objects.get(id=request.session['id'])
+    order = Orders.objects.create(quantity=request.POST['Quantity'],customer=user)
+    order.product.add(product)
+    return redirect('/noorani/checkout')
 
 def logout(request):
     request.session.flush()
@@ -59,31 +63,35 @@ def logout(request):
 def checkout(request):
     if 'id' not in request.session:
         return redirect('/')
-
     user = Users.objects.get(id=request.session['id'])
-    products = user.products_of_user.all()
+    products = []
+    for order in user.orders_of_user.all():
+        for product in order.product.all():
+            products.append(product)
+    quantities = []
+    for order in user.orders_of_user.all():
+        quantities.append(order.quantity)
     total = 0
-    if len(products) == 0:
-        total = 0
-    else:
-        for product in products:
-            total += (product.price * product.quantity)
-        total = total + 10
-    context = {
-        "products": products,
-        "total": total,
-        "items": len(products),
-        "user": user
-    }
 
+    for i in range(len(products)):
+        total += products[i].price*quantities[i]
+    context = {
+        "user": user,
+        "total_orders": len(user.orders_of_user.all()),
+        "Orders": user.orders_of_user.all(),
+        "total": total + 10        }
     return render(request,'checkout.html',context)
 
 def delete_product(request,id):
     if 'id' not in request.session:
         return redirect('/')
     product_to_delete = Products.objects.get(id=id)
-    product_to_delete.delete()
-    return redirect('/noorani/checkout')
+    user = Users.objects.get(id=request.session['id'])
+    for order in user.orders_of_user.all():
+        for product in order.product.all():
+            if product == product_to_delete:
+                order.delete()
+                return redirect('/noorani/checkout')
 
     
 
@@ -92,7 +100,7 @@ def delete_all(request):
         return redirect('/')
 
     user = Users.objects.get(id=request.session['id'])
-    delete_products = user.products_of_user.all().delete()
+    user.orders_of_user.all().delete()
     return redirect('/welcome')
 
 def account_page(request):

@@ -1,4 +1,3 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,12 +8,13 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    {% load static from staticfiles %}
 
 </head>
 <body class="bg-dark">
     <div class="logo col-12">
         <div class="navbar col-12">
-            <img src={% static "noorani.JPG" %}></img>
+            <img src={% static "noorani.JPG" %}>
             <nav class="navbar navbar-expand-lg navbar-light bg-dark">
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
@@ -22,7 +22,7 @@
                                 <a class="nav-link text-white" href="/noorani/account">Account</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="/noorani/checkout">View Cart ({{total_products}})</a>
+                                <a class="nav-link text-white" href="/noorani/checkout">View Cart ({{total_orders}})</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-white" href="/logout">Logout</a>
@@ -35,655 +35,75 @@
 
         <div class="container">
             <div class="row">
+            {% comment %} ADD FOR LOOP {% endcomment %}
                 <div class="col-12 text-center">
-                    <img src={% static "curry_for_all.JPG" %}></img>
+                    <img src={% static "curry_for_all.JPG" %}>
                     <br><br><br>
                 </div>
-                {% comment %} START FOR LOOP! {% endcomment %}
-                <div class="card-deck mb-3 text-center bg-dark">
-                    <div class="card mb-4 shadow-sm bg-dark">
-                        <div class="card-header text-white">
-                            <img class="card-img-top" src={% static "ground_beef.JPG" %}>
+                {% for product in products %}
+                    <div class="card-deck mb-3 text-center bg-dark">
+                        <div class="card mb-4 shadow-sm bg-dark">
+                            <div class="card-header text-white">
+                                {% comment %} <img src={% static {{product.image}} %}></img> {% endcomment %}
+                                <img src="{{product.image.url}}">
 
-                        </div>
-                        {% comment %} creating each product in a database (name,price,image) {% endcomment %}
-                        {% comment %} hardcode each item in database and use for loop to display {% endcomment %}
-                    {% comment %} create product class that stores name,price and picture {% endcomment %}
-                    {% comment %} quantity database stores quantity integer, and product id  {% endcomment %}
-                        <div class="card-body bg-dark">
-                            <ul class="list-unstyled mt-3 mb-4 text-white">
-                                <li>Ground Beef Curry</li>
-                                <li>$1.49</li>
-                            </ul>
-                            <form action="/product/add" method="POST">
-                                {% csrf_token %}
-                                <select name="Quantity">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
+                                {% comment %} <img class="card-img-top" src="../../media/{{product.image}}"> {% endcomment %}
+                                {% comment %} <p>{{product.image}}</p> {% endcomment %}
 
-                                <button type="submit" class="btn btn-danger">ADD</button>
-                                <input type="hidden" id="name" name="name" value="Ground Beef Curry"> 
-                                <input type="hidden" id="price" name="price" value="1.49">     
-                            </form>
-                        </div>
-                    </div>      
-                </div> 
-                <div class="card-deck mb-3 text-center bg-dark">
-                    <div class="card mb-4 shadow-sm bg-dark">
-                        <div class="card-header">
-                            <img class="card-img-top" src={% static "chicken.JPG" %}>
-                        </div>
-                        <div class="card-body bg-dark">
-                            <ul class="list-unstyled mt-3 mb-4 text-white">
-                                <li>Chicken Curry</li>
-                                <li>$1.49</li>
-                            </ul>
-                            <form action="/product/add" method="POST">
-                                {% csrf_token %}
-                                <select name="Quantity">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
-                                <button type="submit" class="btn btn-danger">ADD</button>
-                                <input type="hidden" id="name" name="name" value="Chicken Curry"> 
-                                <input type="hidden" id="price" name="price" value="1.49">     
-                            </form>
-                        </div>
-                    </div>      
-                </div> 
-                <div class="card-deck mb-3 text-center bg-dark">
-                    <div class="card mb-4 shadow-sm bg-dark">
-                        <div class="card-header">
-                            <img class="card-img-top" src={% static "vegetable.JPG" %}>
-                        </div>
-                        <div class="card-body bg-dark">
-                            <ul class="list-unstyled mt-3 mb-4 text-white">
-                                <li>Vegetable Curry</li>
-                                <li>$1.49</li>
-                            </ul>
-                            <form action="/product/add" method="POST">
-                                {% csrf_token %}
-                                <select name="Quantity">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
-                                <button type="submit" class="btn btn-danger">ADD</button>
-                                <input type="hidden" id="name" name="name" value="Vegetable Curry"> 
-                                <input type="hidden" id="price" name="price" value="1.49">     
-                            </form>
-                        </div>
-                    </div>      
-                </div> 
-                <div class="card-deck mb-3 text-center bg-dark">
-                    <div class="card mb-4 shadow-sm bg-dark">
-                        <div class="card-header">
-                            <img class="card-img-top" src={% static "potato.JPG" %}>
-                        </div>
-                        <div class="card-body bg-dark">
-                            <ul class="list-unstyled mt-3 mb-4 text-white">
-                                <li>Potato Curry</li>
-                                <li>$1.49</li>
-                            </ul>
-                            <form action="/product/add" method="POST">
-                                {% csrf_token %}
-                                <select name="Quantity">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
-                                <button type="submit" class="btn btn-danger">ADD</button>
-                                <input type="hidden" id="name" name="name" value="Potato Curry"> 
-                                <input type="hidden" id="price" name="price" value="1.49">     
-                            </form>
-                        </div>
-                    </div>      
-                </div>
-                <div class="card-deck mb-3 text-center bg-dark">
-                    <div class="card mb-4 shadow-sm bg-dark">
-                        <div class="card-header">
-                            <img class="card-img-top" src={% static "butter_chicken.JPG" %}>
-                        </div>
-                        <div class="card-body bg-dark">
-                            <ul class="list-unstyled mt-3 mb-4 text-white">
-                                <li>Butter Chicken Curry</li>
-                                <li>$1.49</li>
-                            </ul>
-                            <form action="/product/add" method="POST">
-                                {% csrf_token %}
-                                <select name="Quantity">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
-                                <button type="submit" class="btn btn-danger">ADD</button>
-                                
-                                <input type="hidden" id="name" name="name" value="Butter Chicken Curry"> 
-                                <input type="hidden" id="price" name="price" value="1.49">     
-                            </form>
-                        </div>
-                    </div>      
-                </div>
-                <div class="card-deck mb-3 text-center bg-dark">
-                    <div class="card mb-4 shadow-sm bg-dark">
-                        <div class="card-header">
-                            <img class="card-img-top" src={% static "chickpeas.JPG" %}>
-                        </div>
-                        <div class="card-body bg-dark">
-                            <ul class="list-unstyled mt-3 mb-4 text-white">
-                                <li>Chickpeas Curry</li>
-                                <li>$1.49</li>
-                            </ul>
-                            <form action="/product/add" method="POST">
-                                {% csrf_token %}
-                                <select name="Quantity">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
-                                <button type="submit" class="btn btn-danger">ADD</button>
-                                
-                                <input type="hidden" id="name" name="name" value="Chickpeas Curry"> 
-                                <input type="hidden" id="price" name="price" value="1.49">     
-                            </form>
-                        </div>
-                    </div>      
-                </div>
-                <div class="card-deck mb-3 text-center bg-dark">
-                    <div class="card mb-4 shadow-sm bg-dark">
-                        <div class="card-header">
-                            <img class="card-img-top" src={% static "beef_stew_3lbs.JPG" %}>
-                        </div>
-                        <div class="card-body bg-dark">
-                            <ul class="list-unstyled mt-3 mb-4 text-white">
-                                <li>Beef Stew</li>
-                                <li>$14.97 (3 lbs)</li>
-                            </ul>
-                            <form action="/product/add" method="POST">
-                                {% csrf_token %}
-                                <select name="Quantity">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
-                                <button type="submit" class="btn btn-danger">ADD</button>
-                                
-                                <input type="hidden" id="name" name="name" value="Beef Stew Meat"> 
-                                <input type="hidden" id="price" name="price" value="15.87">     
-                            </form>
-                        </div>
-                    </div>      
-                </div>
-                <div class="card-deck mb-3 text-center bg-dark">
-                    <div class="card mb-4 shadow-sm bg-dark">
-                        <div class="card-header">
-                            <img class="card-img-top" src={% static "chicken_thighs.JPG" %}>
-                        </div>
-                        <div class="card-body bg-dark">
-                            <ul class="list-unstyled mt-3 mb-4 text-white">
-                                <li>Chicken Thighs</li>
-                                <li>$9.47 (4 lbs)</li>
-                            </ul>
-                            <form action="/product/add" method="POST">
-                                {% csrf_token %}
-                                <select name="Quantity">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
-                                <button type="submit" class="btn btn-danger">ADD</button>
-                                
-                                <input type="hidden" id="name" name="name" value="Chicken Thighs"> 
-                                <input type="hidden" id="price" name="price" value="9.47">     
-                            </form>
-                        </div>
-                    </div>      
-                </div>
-                <div class="card-deck mb-3 text-center bg-dark">
-                    <div class="card mb-4 shadow-sm bg-dark">
-                        <div class="card-header">
-                            <img class="card-img-top" src={% static "beef_shank.JPG" %}>
-                        </div>
-                        <div class="card-body bg-dark">
-                            <ul class="list-unstyled mt-3 mb-4 text-white">
-                                <li>Beef Shank</li>
-                                <li>$14.97 (3lbs)</li>
-                            </ul>
-                            <form action="/product/add" method="POST">
-                                {% csrf_token %}
-                                <select name="Quantity">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
-                                <button type="submit" class="btn btn-danger">ADD</button>
-                                
-                                <input type="hidden" id="name" name="name" value="Beef Shank"> 
-                                <input type="hidden" id="price" name="price" value="14.97">     
-                            </form>
-                        </div>
-                    </div>      
-                </div>
-                <div class="card-deck mb-3 text-center bg-dark">
-                    <div class="card mb-4 shadow-sm bg-dark">
-                        <div class="card-header">
-                            <img class="card-img-top" src={% static "chicken_breast.JPG" %}>
-                        </div>
-                        <div class="card-body bg-dark">
-                            <ul class="list-unstyled mt-3 mb-4 text-white">
-                                <li>Chicken Breast</li>
-                                <li>$11.94 (6 lbs)</li>
-                            </ul>
-                            <form action="/product/add" method="POST">
-                                {% csrf_token %}
-                                <select name="Quantity">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
-                                <button type="submit" class="btn btn-danger">ADD</button>
-                                
-                                <input type="hidden" id="name" name="name" value="Chicken Breast"> 
-                                <input type="hidden" id="price" name="price" value="11.94">     
-                            </form>
-                        </div>
-                    </div>      
-                </div>
-                <div class="card-deck mb-3 text-center bg-dark">
-                    <div class="card mb-4 shadow-sm bg-dark">
-                        <div class="card-header">
-                            <img class="card-img-top" src={% static "beef_steak.JPG" %}>
-                        </div>
-                        <div class="card-body bg-dark">
-                            <ul class="list-unstyled mt-3 mb-4 text-white">
-                                <li>Beef Steak</li>
-                                <li>$17.97 (3 lbs)</li>
-                            </ul>
-                            <form action="/product/add" method="POST">
-                                {% csrf_token %}
-                                <select name="Quantity">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
-                                <button type="submit" class="btn btn-danger">ADD</button>
-                                
-                                <input type="hidden" id="name" name="name" value="Beef Steak"> 
-                                <input type="hidden" id="price" name="price" value="17.97">     
-                            </form>
-                        </div>
-                    </div>      
-                </div>
-                <div class="card-deck mb-3 text-center bg-dark">
-                    <div class="card mb-4 shadow-sm bg-dark">
-                        <div class="card-header">
-                            <img class="card-img-top" src={% static "lamb_stew.JPG" %}>
-                        </div>
-                        <div class="card-body bg-dark">
-                            <ul class="list-unstyled mt-3 mb-4 text-white">
-                                <li>Lamb Stew</li>
-                                <li>$17.97 (3 lbs)</li>
-                            </ul>
-                            <form action="/product/add" method="POST">
-                                {% csrf_token %}
-                                <select name="Quantity">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
-                                <button type="submit" class="btn btn-danger">ADD</button>
-                                
-                                <input type="hidden" id="name" name="name" value="Lamb Stew"> 
-                                <input type="hidden" id="price" name="price" value="17.97">     
-                            </form>
-                        </div>
-                    </div>      
-                </div>
-                <div class="card-deck mb-3 text-center bg-dark">
-                    <div class="card mb-4 shadow-sm bg-dark">
-                        <div class="card-header">
-                            <img class="card-img-top" src={% static "chicken_legs.JPG" %}>
-                        </div>
-                        <div class="card-body bg-dark">
-                            <ul class="list-unstyled mt-3 mb-4 text-white">
-                                <li>Chicken Legs</li>
-                                <li>$5.96 (3 lbs)</li>
-                            </ul>
-                            <form action="/product/add" method="POST">
-                                {% csrf_token %}
-                                <select name="Quantity">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
-                                <button type="submit" class="btn btn-danger">ADD</button>
-                                
-                                <input type="hidden" id="name" name="name" value="Chicken Legs"> 
-                                <input type="hidden" id="price" name="price" value="5.96">     
-                            </form>
-                        </div>
-                    </div>      
-                </div>
-                <div class="card-deck mb-3 text-center bg-dark">
-                    <div class="card mb-4 shadow-sm bg-dark">
-                        <div class="card-header">
-                            <img class="card-img-top" src={% static "ground_beef_meat.JPG" %}>
-                        </div>
-                        <div class="card-body bg-dark">
-                            <ul class="list-unstyled mt-3 mb-4 text-white">
-                                <li>Ground Beef Meat</li>
-                                <li>$10.58 (16 oz)</li>
-                            </ul>
-                            <form action="/product/add" method="POST">
-                                {% csrf_token %}
-                                <select name="Quantity">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
-                                <button type="submit" class="btn btn-danger">ADD</button>
-                                
-                                <input type="hidden" id="name" name="name" value="Ground Beef Meat"> 
-                                <input type="hidden" id="price" name="price" value="10.58">     
-                            </form>
-                        </div>
-                    </div>      
-                </div>
-                <div class="card-deck mb-3 text-center bg-dark">
-                    <div class="card mb-4 shadow-sm bg-dark">
-                        <div class="card-header">
-                            <img class="card-img-top" src={% static "basmati_rice.JPG" %}>
-                        </div>
-                        <div class="card-body bg-dark">
-                            <ul class="list-unstyled mt-3 mb-4 text-white">
-                                <li>White Rice</li>
-                                <li>$21.99 (10 lbs)</li>
-                            </ul>
-                            <form action="/product/add" method="POST">
-                                {% csrf_token %}
-                                <select name="Quantity">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
-                                <button type="submit" class="btn btn-danger">ADD</button>
-                                
-                                <input type="hidden" id="name" name="name" value="Basmati White Rice"> 
-                                <input type="hidden" id="price" name="price" value="21.99">     
-                            </form>
-                        </div>
-                    </div>      
-                </div>
-                <div class="card-deck mb-3 text-center bg-dark">
-                    <div class="card mb-4 shadow-sm bg-dark">
-                        <div class="card-header">
-                            <img class="card-img-top" src={% static "arabic_bread.JPG" %}>
-                        </div>
-                        <div class="card-body bg-dark">
-                            <ul class="list-unstyled mt-3 mb-4 text-white">
-                                <li>Arabic White bread</li>
-                                <li>$0.99 </li>
-                            </ul>
-                            <form action="/product/add" method="POST">
-                                {% csrf_token %}
-                                <select name="Quantity">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
-                                <button type="submit" class="btn btn-danger">ADD</button>
-                                
-                                <input type="hidden" id="name" name="name" value="White Bread"> 
-                                <input type="hidden" id="price" name="price" value="0.99">     
-                            </form>
-                        </div>
-                    </div>      
-                </div>
-                <div class="card-deck mb-3 text-center bg-dark">
-                    <div class="card mb-4 shadow-sm bg-dark">
-                        <div class="card-header">
-                            <img class="card-img-top" src={% static "paratha.JPG" %}>
-                        </div>
-                        <div class="card-body bg-dark">
-                            <ul class="list-unstyled mt-3 mb-4 text-white">
-                                <li>5 pc wheat bread</li>
-                                <li>$1.99 </li>
-                            </ul>
-                            <form action="/product/add" method="POST">
-                                {% csrf_token %}
-                                <select name="Quantity">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
-                                <button type="submit" class="btn btn-danger">ADD</button>
-                                
-                                <input type="hidden" id="name" name="name" value="Wheat Bread"> 
-                                <input type="hidden" id="price" name="price" value="1.99">     
-                            </form>
-                        </div>
-                    </div>      
-                </div>
-                <div class="card-deck mb-3 text-center bg-dark">
-                    <div class="card mb-4 shadow-sm bg-dark">
-                        <div class="card-header">
-                            <img class="card-img-top" src={% static "naan.JPG" %}>
-                        </div>
-                        <div class="card-body bg-dark">
-                            <ul class="list-unstyled mt-3 mb-4 text-white">
-                                <li>5 pc Naan</li>
-                                <li>$3.99 </li>
-                            </ul>
-                            <form action="/product/add" method="POST">
-                                {% csrf_token %}
-                                <select name="Quantity">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
-                                <button type="submit" class="btn btn-danger">ADD</button>
-                                
-                                <input type="hidden" id="name" name="name" value="Naan"> 
-                                <input type="hidden" id="price" name="price" value="3.99">     
-                            </form>
-                        </div>
-                    </div>      
-                </div>
-                <div class="card-deck mb-3 text-center bg-dark">
-                    <div class="card mb-4 shadow-sm bg-dark">
-                        <div class="card-header">
-                            <img class="card-img-top" src={% static "rice_pudding.JPG" %}>
-                        </div>
-                        <div class="card-body bg-dark">
-                            <ul class="list-unstyled mt-3 mb-4 text-white">
-                                <li>Rice Pudding</li>
-                                <li>$3.99 </li>
-                            </ul>
-                            <form action="/product/add" method="POST">
-                                {% csrf_token %}
-                                <select name="Quantity">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
-                                <button type="submit" class="btn btn-danger">ADD</button>
-                                
-                                <input type="hidden" id="name" name="name" value="Rice Pudding"> 
-                                <input type="hidden" id="price" name="price" value="3.99">     
-                            </form>
-                        </div>
-                    </div>      
-                </div>
-                <div class="card-deck mb-3 text-center bg-dark">
-                    <div class="card mb-4 shadow-sm bg-dark">
-                        <div class="card-header">
-                            <img class="card-img-top" src={% static "jelly.JPG" %}>
-                        </div>
-                        <div class="card-body bg-dark">
-                            <ul class="list-unstyled mt-3 mb-4 text-white">
-                                <li>Jelly</li>
-                                <li>$1.99 </li>
-                            </ul>
-                            <form action="/product/add" method="POST">
-                                {% csrf_token %}
-                                <select name="Quantity">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
-                                <button type="submit" class="btn btn-danger">ADD</button>
-                                
-                                <input type="hidden" id="name" name="name" value="Jelly"> 
-                                <input type="hidden" id="price" name="price" value="1.99">     
-                            </form>
-                        </div>
-                    </div>      
-                </div>
+                            </div>
+                            {% comment %} creating each product in a database (name,price,image) {% endcomment %}
+                            {% comment %} hardcode each item in database and use for loop to display {% endcomment %}
+                        {% comment %} create product class that stores name,price and picture {% endcomment %}
+                        {% comment %} quantity database stores quantity integer, and product id  {% endcomment %}
+                            <div class="card-body bg-dark">
+                                <ul class="list-unstyled mt-3 mb-4 text-white">
+                                    <li>{{product.name}}</li>
+                                    <li>{{product.price}}</li> 
+                                </ul>
+                                <form action="/order/add" method="POST">
+                                    {% csrf_token %}
+                                    <select name="Quantity">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                        <option value="21">21</option>
+                                        <option value="22">22</option>
+                                        <option value="23">23</option>
+                                        <option value="24">24</option>
+                                        <option value="25">25</option>
+                                        <option value="26">26</option>
+                                        <option value="27">27</option>
+                                        <option value="28">28</option>
+                                        <option value="29">29</option>
+                                        <option value="30">30</option>
 
 
+                                    </select>
+
+                                    <button type="submit" class="btn btn-danger">ADD</button>
+                                    <input type="hidden" id="name" name="product" value="{{product.id}}"> 
+                                </form>
+                            </div>
+                        </div>      
+                    </div> 
+                {% endfor %}
             </div> 
         </div>
     </div>

@@ -1,3 +1,4 @@
+from PIL import Image
 import bcrypt, re
 from django.db import models
 from datetime import datetime
@@ -141,17 +142,22 @@ class Users(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     objects = Users_Manager()
 
+
 class Products(models.Model):
     name = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=5, decimal_places=2)
-    quantity = models.IntegerField()
-    
-    # user can have many products
-    customer = models.ForeignKey(Users,related_name="products_of_user",on_delete = models.CASCADE)
-
-    # use many to many
+    # default is what image you want to show
+    image = models.ImageField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+class Orders(models.Model):
+    quantity = models.IntegerField()
+    customer = models.ForeignKey(Users,related_name="orders_of_user",on_delete = models.CASCADE)
+    product = models.ManyToManyField(Products,related_name="orders")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
 
 class Card(models.Model):
     name = models.CharField(max_length=255)
