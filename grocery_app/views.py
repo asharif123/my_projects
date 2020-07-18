@@ -164,7 +164,10 @@ def update_account(request):
 
     # Create user's id from the created database, use this to retain info when navigating to another page
     request.session['id'] = User_update.id
-    return redirect('/welcome')
+    context = {
+        "user": Users.objects.get(id=request.session['id'])
+    }
+    return render(request,'account_details_ajax.html',context)
 
 
     

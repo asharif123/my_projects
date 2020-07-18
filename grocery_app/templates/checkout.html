@@ -8,12 +8,13 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v4.0.1">
     <title>Checkout example · Bootstrap</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    {% comment %} <link rel="stylesheet" type="text/css" href="/static"> {% endcomment %}
+
 
   </head>
-  <body class="bg-dark">
-      <div class="container">
+  <body class="checkout bg-dark">
+      <div class="container bg-dark">
         <div class="navbar col-12">
             <img src={% static "noorani.JPG" %}></img>
 
@@ -71,11 +72,14 @@
           </ul>
 
         </div>
+        {% comment %} use Google API to confirm address {% endcomment %}
         <div class="col-md-8 order-md-1">
-          <h4 class="mb-3 text-white">Shipping address:</h4>
-            <p class="text-white">{{user.street}}</p>
-            <p class="text-white">{{user.city}}, {{user.state}}  {{user.zipcode}}</p> 
-            <a href="/account/info">Edit Shipping Address</a>
+          <h4 class="mb-3 text-white">Shipping address (click to confirm your location):</h4>
+            <div class="address">
+              <p class="text-white"><u>{{user.street}}</u></p>
+              <p class="text-white"><u>{{user.city}}, {{user.state}}  {{user.zipcode}}</u></p>
+              <a href="/account/info">Edit Shipping Address</a>
+            </div>
             <br><br>
             <form action="/noorani/submit" method="post">
               {% csrf_token %}
@@ -129,4 +133,7 @@
       <p class="mb-1 text-white">&copy; 2020 Noorani</p>
     </footer>
   </body>
+  <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+  <script src="{% static 'script.js' %}"></script>
+
 </html>
