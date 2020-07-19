@@ -81,8 +81,11 @@ def checkout(request):
     response = urllib.request.urlopen(my_request).read()
     directions = json.loads(response)
     print(['*']*100)
-    # print(directions['routes'][0]['legs'][0]['end_location'])
-    print(directions['routes'][0]['legs'][0])
+    lattitude = (directions['routes'][0]['legs'][0])
+    longitude = (directions['routes'][0]['legs'][0]['end_location']['lng'])
+    print(lattitude)
+
+    # print(directions['routes'][0]['legs'][0])
     products = []
     for order in user.orders_of_user.all():
         for product in order.product.all():
