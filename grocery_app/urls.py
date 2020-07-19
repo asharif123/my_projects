@@ -3,6 +3,9 @@ from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 
+# AJAX allows web pages to be updated by exchanging small amounts of information with the server without refreshing page.
+
+
 urlpatterns = [
     path('', views.main_page),
     path('register', views.add_account),
@@ -11,7 +14,7 @@ urlpatterns = [
     path('order/add', views.add_order),
     path('logout', views.logout),
     path('noorani/checkout', views.checkout),
-    path('delete/<int:id>', views.delete_product),
+    path('delete/item', views.delete_product),
     path('noorani/delete/all', views.delete_all),
     path('noorani/account', views.account_page),
     path('noorani/submit', views.submit),

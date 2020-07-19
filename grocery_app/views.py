@@ -82,11 +82,31 @@ def checkout(request):
         "total": total + 10        }
     return render(request,'checkout.html',context)
 
-def delete_product(request,id):
+def delete_product(request):
     if 'id' not in request.session:
         return redirect('/')
-    product_to_delete = Products.objects.get(id=id)
     user = Users.objects.get(id=request.session['id'])
+
+
+    product_to_delete = Products.objects.get(id=request.POST["product_id"])
+    user = Users.objects.get(id=request.session['id'])
+    products = []
+    for order in user.orders_of_user.all():
+        for product in order.product.all():
+            products.append(product)
+    quantities = []
+    for order in user.orders_of_user.all():
+        quantities.append(order.quantity)
+    total = 0
+
+    for i in range(len(products)):
+        total += products[i].price*quantities[i]
+    # context = {
+    #     "user": user,
+    #     "total_orders": len(user.orders_of_user.all()),
+    #     "Orders": user.orders_of_user.all(),
+    #     "total": total + 10        }
+
     for order in user.orders_of_user.all():
         for product in order.product.all():
             if product == product_to_delete:
@@ -164,10 +184,7 @@ def update_account(request):
 
     # Create user's id from the created database, use this to retain info when navigating to another page
     request.session['id'] = User_update.id
-    context = {
-        "user": Users.objects.get(id=request.session['id'])
-    }
-    return render(request,'account_details_ajax.html',context)
+    return redirect('/welcome')
 
 
     

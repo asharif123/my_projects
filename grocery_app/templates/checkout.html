@@ -10,6 +10,7 @@
     <title>Checkout example · Bootstrap</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     {% comment %} <link rel="stylesheet" type="text/css" href="/static"> {% endcomment %}
+    {% load static %}
 
 
   </head>
@@ -45,31 +46,37 @@
             <br><br>
             <h4 class="text-white">Total Items:  {{total_orders}}</h4>
             <br>
-          <ul class="list-group mb-3">
-            {% for order in Orders %}
-              {% for product in order.product.all %}
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                  <div>
-                    <h6 class="my-0">{{product.name}}</h6>
-                    <small class="text-muted">Quantity: {{order.quantity}} </small>
-                  </div>
-                  <span class="text-muted">${{product.price}}</span>
-                    <a href="/delete/{{product.id}}">Delete</a>
-                </li>
-                {% endfor %}
-            {% endfor %}
-            <li class="list-group-item d-flex justify-content-between">
-              {%if total_orders > 0 %}
-                <strong>Shipping Fee (USD): $10</strong>
-              {% endif %}
-            </li>
+          <div class="items_list">
+            <ul class="list-group mb-3">
+              {% for order in Orders %}
+                {% for product in order.product.all %}
+                  <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                      <h6 class="my-0">{{product.name}}</h6>
+                      <small class="text-muted">Quantity: {{order.quantity}} </small>
+                    </div>
+                    <span class="text-muted">${{product.price}}</span>
+                      <form class="delete_form" action="/delete/item" method='POST' product='{{product.id}}'>
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger sm">Delete</button>
+                        <input name="product_id" type="hidden" value="{{product.id}}">  
+                      </form>
+                  </li>
+                  {% endfor %}
+              {% endfor %}
+              <li class="list-group-item d-flex justify-content-between">
+                {%if total_orders > 0 %}
+                  <strong>Shipping Fee (USD): $10</strong>
+                {% endif %}
+              </li>
 
-            <li class="list-group-item d-flex justify-content-between">
-              {%if total_orders > 0 %}
-                <h5>Total (USD) ${{total}}</h5>
-              {% endif %}
-            </li>
-          </ul>
+              <li class="list-group-item d-flex justify-content-between">
+                {%if total_orders > 0 %}
+                  <h5>Total (USD) ${{total}}</h5>
+                {% endif %}
+              </li>
+            </ul>
+          </div>
 
         </div>
         {% comment %} use Google API to confirm address {% endcomment %}
@@ -133,7 +140,10 @@
       <p class="mb-1 text-white">&copy; 2020 Noorani</p>
     </footer>
   </body>
-  <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+  <script
+    src="https://code.jquery.com/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+    crossorigin="anonymous"></script>
   <script src="{% static 'script.js' %}"></script>
 
 </html>
