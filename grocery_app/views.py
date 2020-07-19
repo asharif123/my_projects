@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
 import bcrypt
 from .models import *
+import urllib.request
+import json
+
 
 # Create your views here.
 def main_page(request):
@@ -64,6 +67,22 @@ def checkout(request):
     if 'id' not in request.session:
         return redirect('/')
     user = Users.objects.get(id=request.session['id'])
+    origin = '14178 Brookhurst St, Garden Grove, CA 92843'
+    origin = origin.replace(' ','+')
+    destination = '{},{},{},{}'.format(user.street, user.city, user.state, user.zipcode)
+    destination = destination.replace(' ','+')
+
+# Grab Google directions api info from Google maps uRL
+    api_key = 'AIzaSyBm9ZKXq83YFy9BLQQe50vXS-QHYedkvvw'
+    endpoint = 'https://maps.googleapis.com/maps/api/directions/json?'
+    new_request = 'origin={}&destination={}&key={}'.format(origin,destination,api_key)
+    my_request = endpoint+new_request
+    # print(my_request)
+    response = urllib.request.urlopen(my_request).read()
+    directions = json.loads(response)
+    print(['*']*100)
+    # print(directions['routes'][0]['legs'][0]['end_location'])
+    print(directions['routes'][0]['legs'][0])
     products = []
     for order in user.orders_of_user.all():
         for product in order.product.all():
@@ -101,11 +120,6 @@ def delete_product(request):
 
     for i in range(len(products)):
         total += products[i].price*quantities[i]
-    # context = {
-    #     "user": user,
-    #     "total_orders": len(user.orders_of_user.all()),
-    #     "Orders": user.orders_of_user.all(),
-    #     "total": total + 10        }
 
     for order in user.orders_of_user.all():
         for product in order.product.all():
