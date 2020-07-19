@@ -81,9 +81,12 @@ def checkout(request):
     response = urllib.request.urlopen(my_request).read()
     directions = json.loads(response)
     print(['*']*100)
-    lattitude = (directions['routes'][0]['legs'][0])
+    lattitude = (directions['routes'][0]['legs'][0]['end_location']['lat'])
     longitude = (directions['routes'][0]['legs'][0]['end_location']['lng'])
-    print(lattitude)
+    print(lattitude,longitude)
+    # url to pull google marker to show user's location
+    url = 'https://maps.googleapis.com/maps/api/js?key={}&callback=initMap'.format(api_key)
+    print(url)
 
     # print(directions['routes'][0]['legs'][0])
     products = []
@@ -101,7 +104,11 @@ def checkout(request):
         "user": user,
         "total_orders": len(user.orders_of_user.all()),
         "Orders": user.orders_of_user.all(),
-        "total": total + 10        }
+        "total": total + 10,
+        "lattitude": lattitude,
+        "longitude": longitude
+    }
+        
     return render(request,'checkout.html',context)
 
 def delete_product(request):
