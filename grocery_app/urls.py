@@ -17,10 +17,12 @@ urlpatterns = [
     path('delete/item', views.delete_product),
     path('noorani/delete/all', views.delete_all),
     path('noorani/account', views.account_page),
-    path('noorani/submit', views.submit),
     path('noorani/success', views.success),
     path('account/info', views.account_info),
-    path('noorani/account/update', views.update_account)
+    path('noorani/account/update', views.update_account),
+# USING STRIPE API
+    path('charge', views.charge),
+    path('noorani/checkout/page', views.checkout_page)
     # # path('noorani/favorite', views.favorite_items)
 
 

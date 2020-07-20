@@ -58,9 +58,16 @@ class Users_Manager(models.Manager):
                 
         if len(postData["City"]) < 5:
             errors["City"] = ("City should have at least 5 characters!")
-
-        if len(postData["State"]) < 3:
+        
+        
+        if len(postData["State"]) < 2:
             errors["State"] = ("State should have at least 3 characters!")
+        # print(['I']*100)
+        # print((postData["State"]))
+        
+        # if ((postData["State"])[:2] != 'CA') or ((postData["State"])[:2] != 'ca') or ((postData["State"]) != "California") or (postData["State"]) != "california":
+        #     errors["State"] = ("Can only deliver groceries in California!")
+
 
         if len(postData["Zip"]) != 5:
             errors["Zip"] = ("Zipcode must have at least 5 digits!")
@@ -98,36 +105,6 @@ class Users_Manager(models.Manager):
 
         return errors
 
-class Cards_Manager(models.Manager):
-    def card_validator(self,postData):
-        errors = {}
-        if len(postData["name"]) < 2:
-            errors["name"] = "Name must have at least 2 characters!"
-
-        if not (postData["name"].isalpha()):
-            errors["name"]: "Card name must have all letters!"
-
-        if len(postData["cardnumber"]) != 16:
-            errors["cardnumber"] = "Credit Card number must have 16 digits!"
-
-        if not (postData["cardnumber"]).isnumeric():
-            errors["cardnumber"] = "Card Number must have all numbers!"
-
-        if (postData["cardexpiration"]) == "" or (postData["cardexpiration"]) == " ":
-            errors["cardexpiration"] = "Expiration date cannot be empty!"
-
-        expiration_date = datetime.strptime(postData["cardexpiration"], "%Y-%m-%d")
-        if (expiration_date < now):
-            errors["cardexpiration"] = "Expiration date must be in the future!"
-
-        if not (postData["cardcvv"]).isnumeric():
-            errors["cardcvv"] = "Card Code must have all numbers!"
-
-        if len(postData["cardcvv"]) != 3:
-            errors["cardcvv"] = "Card code must be a 3 digit code!"
-
-        return errors
-
 # Create your models here.
 class Users(models.Model):
 
@@ -157,13 +134,4 @@ class Orders(models.Model):
     product = models.ManyToManyField(Products,related_name="orders")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-
-class Card(models.Model):
-    name = models.CharField(max_length=255)
-    card_number = models.IntegerField()
-    expiration = models.DateTimeField()
-    card_code = models.IntegerField()
-    owner = models.ForeignKey(Users,related_name="cards_of_user",on_delete = models.CASCADE)
-    objects = Cards_Manager()
 

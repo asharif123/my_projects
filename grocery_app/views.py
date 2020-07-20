@@ -83,10 +83,10 @@ def checkout(request):
     print(['*']*100)
     lattitude = (directions['routes'][0]['legs'][0]['end_location']['lat'])
     longitude = (directions['routes'][0]['legs'][0]['end_location']['lng'])
-    print(lattitude,longitude)
+    # print(lattitude,longitude)
     # url to pull google marker to show user's location
-    url = 'https://maps.googleapis.com/maps/api/js?key={}&callback=initMap'.format(api_key)
-    print(url)
+    # url = 'https://maps.googleapis.com/maps/api/js?key={}&callback=initMap'.format(api_key)
+    # print(url)
 
     # print(directions['routes'][0]['legs'][0])
     products = []
@@ -155,24 +155,21 @@ def account_page(request):
     }
     return render(request,'account.html',context)
 
-def submit(request):
+def charge(request):
     if 'id' not in request.session:
         return redirect('/')
-    errors = Card.objects.card_validator(request.POST)
-    if len(errors) > 0:
-        for key, value in errors.items():
-            messages.error(request, value)
-        return redirect('/noorani/checkout')
-
-    card = Card.objects.create(name=request.POST["name"],card_number=request.POST["cardnumber"],expiration=request.POST["cardexpiration"],card_code=request.POST["cardcvv"],owner=Users.objects.get(id=request.session['id']))
     return redirect('/noorani/success')
 
 def success(request):
     if 'id' not in request.session:
         return redirect('/')
+    user = Users.objects.get(id=request.session['id'])
+    user.orders_of_user.all().delete()
     context = {
-        "user": Users.objects.get(id=request.session['id'])
+        "user": user
     }
+
+
 
     return render(request,'success.html',context)
 
@@ -209,6 +206,13 @@ def update_account(request):
     # Create user's id from the created database, use this to retain info when navigating to another page
     request.session['id'] = User_update.id
     return redirect('/welcome')
+
+def checkout_page(request):
+    context = {
+        "user": Users.objects.get(id=request.session['id'])
+    }
+
+    return render(request,'checkout_page.html',context)
 
 
     
