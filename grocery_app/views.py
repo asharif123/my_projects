@@ -169,8 +169,6 @@ def success(request):
         "user": user
     }
 
-
-
     return render(request,'success.html',context)
 
 def account_info(request):
