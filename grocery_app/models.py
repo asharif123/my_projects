@@ -125,6 +125,7 @@ class Products(models.Model):
     price = models.DecimalField(max_digits=5, decimal_places=2)
     # default is what image you want to show
     image = models.ImageField()
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -134,4 +135,5 @@ class Orders(models.Model):
     product = models.ManyToManyField(Products,related_name="orders")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
 
