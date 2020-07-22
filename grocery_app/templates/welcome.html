@@ -36,12 +36,13 @@
         <div class="container">
             <div class="row">
             {% comment %} ADD FOR LOOP {% endcomment %}
-                <div class="col-12 text-center">
+                <div class="col-12">
                     <img id="curry_for_all" src={% static "curry_for_all.JPG" %}>
                     <br><br><br>
                 </div>
                 {% for product in products %}
-                    <div class="card-deck mb-3 text-center bg-dark">
+                    <div class="card-deck mb-3 bg-dark">
+                    {% comment %} add dark backgorund to EACH item{% endcomment %}
                         <div class="card mb-4 shadow-sm bg-dark">
                             <div class="card-header text-white">
                                 {% comment %} <img src={% static {{product.image}} %}></img> {% endcomment %}
@@ -56,7 +57,7 @@
                         {% comment %} create product class that stores name,price and picture {% endcomment %}
                         {% comment %} quantity database stores quantity integer, and product id  {% endcomment %}
                             <div class="card-body bg-dark">
-                                <ul class="list-unstyled mt-3 mb-4 text-white">
+                                <ul class="list-unstyled text-center text-white">
                                     <li>{{product.name}}</li>
                                     <li>{{product.price}}</li> 
                                 </ul>
@@ -96,8 +97,8 @@
 
 
                                     </select>
-
-                                    <button type="submit" class="btn btn-danger">ADD</button>
+                                        
+                                    <button type="submit" class="btn btn-sm btn-danger">ADD</button>
                                     <input type="hidden" id="name" name="product" value="{{product.id}}"> 
                                 </form>
                             </div>
