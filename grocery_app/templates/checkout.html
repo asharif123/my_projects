@@ -1,4 +1,5 @@
 {% load static %}
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -7,13 +8,24 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v4.0.1">
-    <title>Checkout example · Bootstrap</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    {% comment %} <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> {% endcomment %}
+    {% comment %} <link rel="stylesheet" type="text/css" href="/static"> {% endcomment %}
+    {% load static %}
+    {% comment %} use css to create Google map {% endcomment %}
+    <style>
+      #map {
+        width: 80%;
+        height: 300px;
+        background-color: grey;
+    </style>
+      }
+
 
   </head>
-  <body class="bg-dark">
-      <div class="container">
+  <body class="checkout bg-dark">
+      <div class="container bg-dark">
         <div class="navbar col-12">
             <img src={% static "noorani.JPG" %}></img>
 
@@ -38,88 +50,91 @@
       <div class="row">
         <div class="col-md-4 order-md-2 mb-4">
           <h4 class="d-flex justify-content-between align-items-center mb-3"></h4>
-            {% if items > 0 %}
+            {% if total_orders > 0 %}
               <u><a class="text-white" href="/welcome">  Add to Cart >></a></u>
             {% endif %}
             <br><br>
-            <h4 class="text-white">Total Items:  {{items}}</h4>
-            <span class="badge badge-secondary badge-pill">{{total_products}}</span>
+            <h4 class="text-white">Total Items:  {{total_orders}}</h4>
             <br>
-          <ul class="list-group mb-3">
-            {% for product in products %}
-              <li class="list-group-item d-flex justify-content-between lh-condensed">
-                <div>
-                  <h6 class="my-0">{{product.name}}</h6>
-                  <small class="text-muted">Quantity: {{product.quantity}}</small>
-                </div>
-                <span class="text-muted">${{product.price}}</span>
-                <a href="/delete/{{product.id}}">Delete</a>
+          <div class="items_list">
+            <ul class="list-group mb-3">
+              {% for order in Orders %}
+                {% for product in order.product.all %}
+                  <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                      <h6 class="my-0">{{product.name}}</h6>
+                      <small class="text-muted">Quantity: {{order.quantity}} </small>
+                    </div>
+                    <span class="text-muted">${{product.price}}</span>
+                      <form class="delete_form" action="/delete/item" method='POST' product='{{product.id}}'>
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger sm">Delete</button>
+                        <input name="product_id" type="hidden" value="{{product.id}}">  
+                      </form>
+                  </li>
+                  {% endfor %}
+              {% endfor %}
+              <li class="list-group-item d-flex justify-content-between">
+                {%if total_orders > 0 %}
+                  <strong>Shipping Fee (USD): $10</strong>
+                {% endif %}
               </li>
-            {% endfor %}
-            <li class="list-group-item d-flex justify-content-between">
-              {%if items > 0 %}
-                <strong>Shipping Fee (USD): $10</strong>
-              {% endif %}
-            </li>
 
-            <li class="list-group-item d-flex justify-content-between">
-              {%if items > 0 %}
-                <h5>Total (USD) ${{total}}</h5>
-              {% endif %}
-            </li>
-          </ul>
+              <li class="list-group-item d-flex justify-content-between">
+                {%if total_orders > 0 %}
+                  <h5>Total (USD) ${{total}}</h5>
+                {% endif %}
+              </li>
+            </ul>
+          </div>
 
         </div>
+        {% comment %} use Google API to confirm address {% endcomment %}
         <div class="col-md-8 order-md-1">
-          <h4 class="mb-3 text-white">Shipping address:</h4>
-            <p class="text-white">{{user.street}}</p>
-            <p class="text-white">{{user.city}}, {{user.state}}  {{user.zipcode}}</p> 
-            <a href="/account/info">Edit Shipping Address</a>
+          <h4 class="mb-3 text-white"><u>Shipping address:</u></h4>
+            <div class="address">
+              <p class="text-white"><u>{{user.street}}</u></p>
+              <p class="text-white"><u>{{user.city}}, {{user.state}}  {{user.zipcode}}</u></p>
+              <a class="text-yellow" href="/account/info">Edit Shipping Address</a>
+            </div>
+          <br><br>
+          <h4 class="text-white"><u>Map of your delivery location</u></h4>
+          <br>
+          <p class="text-white">(Click satellite for Google Earth view of your delivery location):</p>
+          <p class="text-white">(Drag and drop the orange man icon on red marker to see your delivery location)
+          <div id="map"></div>
+          <script>
+            function initMap() {
+              var destination = {lat: {{lattitude}}, lng: {{longitude}}};
+              var map = new google.maps.Map(
+                
+              document.getElementById('map'), {zoom: 20, center: destination}
+              );
+              var marker = new google.maps.Marker({position: destination, map: map})
+
+              }
+          </script>
+          <script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBm9ZKXq83YFy9BLQQe50vXS-QHYedkvvw&callback=initMap'></script>
+
             <br><br>
-            <form action="/noorani/submit" method="post">
+            {% comment %} STRIPE API {% endcomment %}
+            <form action="/noorani/checkout/page" method="post">
               {% csrf_token %}
-              <h4 class="mb-3 text-white">Payment</h4>
-
-              <div class="row">
-                <div class="col-md-6 mb-3 text-white">
-                  <label for="name">Name on card</label>
-                  <input type="text" class="form-control" id="name" name="name">
-                  <small class="text-muted">Full name as displayed on card</small>
-                </div>
-                <div class="col-md-6 mb-3 text-white">
-                  <label for="cardnumber">Credit card number</label>
-                  <input type="text" class="form-control" id="cardnumber" name="cardnumber">
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-3 mb-3 text-white">
-                  <label for="cardexpiration">Expiration Date</label>
-                  <input type="date" id="cardexpiration" name="cardexpiration">
-                </div>
-                <div class="col-md-3 mb-3 text-white">
-                  <label for="cardcvv">CVV</label>
-                  <input type="text" class="form-control" id="cardcvv" name="cardcvv">
-                </div>
-              </div>
-              <hr class="mb-4">
-              {% if items > 0 %}
-                <button class="btn btn-success btn-lg btn-block" type="submit">Submit Order</button>
-              {% endif %}
-
+              <button class="btn btn-primary btn-lg btn-block" type="submit">Proceed to Checkout</button>
             </form>
             <br>
             <div class="col-12 order-md-1 text-center">
-              {% if items > 0 %}
+              {% if total_orders > 0 %}
                 <a class="text-white" href="/noorani/delete/all">Cancel Order</a>
               {% endif %}
             </div>
-            {% if messages %}
-                {% for message in messages %}
-            <ul>   
-                <strong><li class="text-white">{{ message }}</li></strong>
-            </ul>    
-                {% endfor %}
-            {% endif %}                
+              {% if messages %}
+                  {% for message in messages %}
+                      <ul>   
+                          <h4><li class="text text-danger">{{ message }}</li></strong></h4>
+                      </ul>    
+                  {% endfor %}
+              {% endif %}                
  
         </div>
       </div>
@@ -128,4 +143,5 @@
       <p class="mb-1 text-white">&copy; 2020 Noorani</p>
     </footer>
   </body>
+
 </html>

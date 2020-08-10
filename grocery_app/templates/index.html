@@ -20,10 +20,11 @@
             <div class="col-4 py-3">
                 <div class="form-group row">
                     <div class="col-sm-8 px-4">
-                        <h4 class="display-6">Create Account</h4>
+                        <h4 class="display-6">Add Account</h4>
                     </div>
                 </div>
-                <form action="/register" method="post">
+    <!-- print out any errors if validation fails for either registeration or logging in -->
+                <form class="user" action="/register" method="post">
                     {% csrf_token %}
                     <div class="form-group row">
                         <div class="col-sm-8">
@@ -72,19 +73,12 @@
                         </div>
                     </div>
                 </form>
-            {% if messages %}
-                {% for message in messages %}
-            <ul>   
-                <strong><li class="text-white">{{ message }}</li></strong>
-            </ul>    
-                {% endfor %}
-            {% endif %}                
 
             </div>
 
             <div class="col-3 px-3 py-3">
                 <h4 class="display-6 text-white">Login</h4>
-                <form action="/login" method="post">
+                <form class="user" action="/login" method="post">
                     {% csrf_token %}
                     <div class="form-group row">
                         <div class="col-sm-8">
@@ -99,13 +93,24 @@
                     <button type="submit" class="btn btn-light rounded-pill rounded-sm">Login</button>
                 </form>
             </div>
-            {% comment %} <div class="logo col-4">
+            <div class="logo col-5">
                 <img src={% static "noorani.JPG" %}></img>
-            </div> {% endcomment %}
+                <br><br>
+                {% if messages %}
+                    {% for message in messages %}
+                        <ul>   
+                            <h4><li class="text text-danger">{{ message }}</li></strong></h4>
+                        </ul>    
+                    {% endfor %}
+                {% endif %}                
+
+            </div>
         </div>
         <footer class="my-5 pt-5 text-muted text-center text-small">
             <p class="mb-1 text-white">&copy; 2020 Noorani</p>
         </footer>
 
     </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 </body>
+</html>
