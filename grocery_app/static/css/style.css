@@ -1,6 +1,6 @@
 
 
-.login{
+.login, .mainpage{
     background-image: url("/static/groceries.JPG");
     background-size: 100%;
     background-position: center;
