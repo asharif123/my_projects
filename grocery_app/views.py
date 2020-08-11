@@ -36,10 +36,6 @@ def login(request):
         return redirect('/welcome')
 
 def welcome_page(request):
-    # if 'id' not in request.session:
-    #     return redirect('/')
-    # product = Products.objects.create(name="Ground Beef Curry", price=1.49, image="ground_beef.JPG")
-    # product = Products.objects.create(name="Chicken Curry", price=1.49, image="chicken.JPG")
 
     if 'id' not in request.session:
         total_orders = 0
@@ -88,10 +84,8 @@ def checkout(request):
     endpoint = 'https://maps.googleapis.com/maps/api/directions/json?'
     new_request = 'origin={}&destination={}&key={}'.format(origin,destination,api_key)
     my_request = endpoint+new_request
-    # print(my_request)
     response = urllib.request.urlopen(my_request).read()
     directions = json.loads(response)
-    print(['*']*100)
     lattitude = (directions['routes'][0]['legs'][0]['end_location']['lat'])
     longitude = (directions['routes'][0]['legs'][0]['end_location']['lng'])
     # print(lattitude,longitude)
