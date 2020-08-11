@@ -94,12 +94,12 @@
                 </form>
             </div>
             <div class="logo col-5">
-                <img src={% static "noorani.JPG" %}></img>
+                {% comment %} <img src={% static "noorani.JPG" %}></img> {% endcomment %}
                 <br><br>
                 {% if messages %}
                     {% for message in messages %}
                         <ul>   
-                            <h4><li class="text text-danger">{{ message }}</li></strong></h4>
+                            <h2><li class="error">{{ message }}</li></strong></h2>
                         </ul>    
                     {% endfor %}
                 {% endif %}                
