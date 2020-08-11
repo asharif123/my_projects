@@ -13,7 +13,7 @@
     <div class="logo col-12">
         <div class="navbar col-12">
             <img src={% static "noorani.JPG" %}>
-            <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+            <nav class="navbar navbar-expand-lg rounded bg-dark">
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
                             <li class="nav-item active">
@@ -54,10 +54,10 @@
                             {% comment %} hardcode each item in database and use for loop to display {% endcomment %}
                         {% comment %} create product class that stores name,price and picture {% endcomment %}
                         {% comment %} quantity database stores quantity integer, and product id  {% endcomment %}
-                            <div class="card-body">
+                            <div class="card-body text-center">
                                 <ul class="list-unstyled text-center text-white">
                                     <li>{{product.name}}</li>
-                                    <li>{{product.price}}</li> 
+                                    <li>${{product.price}}</li> 
                                 </ul>
                                 <form action="/order/add" method="POST">
                                     {% csrf_token %}
