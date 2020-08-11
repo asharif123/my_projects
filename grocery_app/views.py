@@ -152,7 +152,7 @@ def delete_product(request):
 
 def delete_all(request):
     if 'id' not in request.session:
-        return redirect('/')
+        return redirect('/home')
 
     user = Users.objects.get(id=request.session['id'])
     user.orders_of_user.all().delete()
