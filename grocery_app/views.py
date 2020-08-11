@@ -124,7 +124,7 @@ def checkout(request):
 
 def delete_product(request):
     if 'id' not in request.session:
-        return redirect('/')
+        return redirect('/home')
     user = Users.objects.get(id=request.session['id'])
 
 
