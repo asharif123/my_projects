@@ -160,7 +160,7 @@ def delete_all(request):
 
 def account_page(request):
     if 'id' not in request.session:
-        return redirect('/')
+        return redirect('/home')
     context = {
         "user": Users.objects.get(id=request.session['id'])
     }
