@@ -1,9 +1,13 @@
 
 
-.login, .mainpage{
+.login {
     background-image: url("/static/groceries.JPG");
     background-size: 100%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+  }
+
+  .welcome, .card-deck, .card, .card-body {
+    background-color: #212529;
   }

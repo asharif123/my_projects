@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="/static/css/style.css">
 
 </head>
-<body class="bg-dark">
+<body class="welcome">
     <div class="logo col-12">
         <div class="navbar col-12">
             <img src={% static "noorani.JPG" %}>
@@ -39,9 +39,9 @@
                     <br><br><br>
                 </div>
                 {% for product in products %}
-                    <div class="card-deck mb-4 bg-dark">
+                    <div class="card-deck mb-4">
                     {% comment %} add dark backgorund to EACH item{% endcomment %}
-                        <div class="card mb-3 shadow-sm bg-dark">
+                        <div class="card mb-3 shadow-sm">
                             <div class="card-header text-white">
                                 {% comment %} <img src={% static {{product.image}} %}></img> {% endcomment %}
                                 <img src="{{product.image.url}}">
@@ -54,7 +54,7 @@
                             {% comment %} hardcode each item in database and use for loop to display {% endcomment %}
                         {% comment %} create product class that stores name,price and picture {% endcomment %}
                         {% comment %} quantity database stores quantity integer, and product id  {% endcomment %}
-                            <div class="card-body bg-dark">
+                            <div class="card-body">
                                 <ul class="list-unstyled text-center text-white">
                                     <li>{{product.name}}</li>
                                     <li>{{product.price}}</li> 
