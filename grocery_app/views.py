@@ -36,15 +36,21 @@ def login(request):
         return redirect('/welcome')
 
 def welcome_page(request):
-    if 'id' not in request.session:
-        return redirect('/')
-    user = Users.objects.get(id=request.session['id'])
+    # if 'id' not in request.session:
+    #     return redirect('/')
     # product = Products.objects.create(name="Ground Beef Curry", price=1.49, image="ground_beef.JPG")
     # product = Products.objects.create(name="Chicken Curry", price=1.49, image="chicken.JPG")
+
+    if 'id' not in request.session:
+        total_orders = 0
+    else:
+        user = Users.objects.get(id=request.session['id'])
+        total_orders = len(user.orders_of_user.all())
+
     
     context = {
         "products": Products.objects.all(),
-        "total_orders": len(user.orders_of_user.all())
+        "total_orders": total_orders
     }
 
     print(['*']*100)
@@ -57,7 +63,7 @@ def welcome_page(request):
 
 def add_order(request):
     if 'id' not in request.session:
-        return redirect('/')
+        return redirect('/home')
     product = Products.objects.get(id=request.POST["product"])
     user = Users.objects.get(id=request.session['id'])
     order = Orders.objects.create(quantity=request.POST['Quantity'],customer=user)
