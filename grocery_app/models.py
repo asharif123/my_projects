@@ -125,7 +125,7 @@ class Products(models.Model):
     price = models.DecimalField(max_digits=5, decimal_places=2)
     # default is what image you want to show
     image = models.ImageField()
-
+    users_who_like = models.ManyToManyField(Users,related_name="liked_products")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
