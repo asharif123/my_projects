@@ -76,7 +76,7 @@ def logout(request):
 
 def checkout(request):
     if 'id' not in request.session:
-        return redirect('/')
+        return redirect('/home')
     user = Users.objects.get(id=request.session['id'])
     origin = '14178 Brookhurst St, Garden Grove, CA 92843'
     origin = origin.replace(' ','+')
