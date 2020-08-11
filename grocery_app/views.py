@@ -184,7 +184,7 @@ def success(request):
 
 def account_info(request):
     if 'id' not in request.session:
-        return redirect('/')
+        return redirect('/home')
     context = {
         "user": Users.objects.get(id=request.session['id'])
     }
