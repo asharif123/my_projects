@@ -168,7 +168,7 @@ def account_page(request):
 
 def charge(request):
     if 'id' not in request.session:
-        return redirect('/')
+        return redirect('/home')
     return redirect('/noorani/success')
 
 def success(request):
