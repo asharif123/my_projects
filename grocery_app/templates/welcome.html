@@ -1,12 +1,15 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+
 </head>
-<body class=".mainpage">
+<body class="bg-dark">
     <div class="logo col-12">
         <div class="navbar col-12">
             <img src={% static "noorani.JPG" %}>
@@ -28,7 +31,7 @@
         </div>
                 
 
-        <div class="container">
+        <div class="container col-9">
             <div class="row">
             {% comment %} ADD FOR LOOP {% endcomment %}
                 <div class="col-12">
@@ -36,9 +39,9 @@
                     <br><br><br>
                 </div>
                 {% for product in products %}
-                    <div class="card-deck mb-3 bg-dark">
+                    <div class="card-deck mb-4 bg-dark">
                     {% comment %} add dark backgorund to EACH item{% endcomment %}
-                        <div class="card mb-4 shadow-sm bg-dark">
+                        <div class="card mb-3 shadow-sm bg-dark">
                             <div class="card-header text-white">
                                 {% comment %} <img src={% static {{product.image}} %}></img> {% endcomment %}
                                 <img src="{{product.image.url}}">

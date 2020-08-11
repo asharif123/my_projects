@@ -47,6 +47,11 @@ def welcome_page(request):
         "total_orders": len(user.orders_of_user.all())
     }
 
+    print(['*']*100)
+    for product in Products.objects.all():
+        print(product.name)
+        print(product.price)
+
 
     return render(request,'welcome.html',context)
 
