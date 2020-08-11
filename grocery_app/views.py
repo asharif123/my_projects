@@ -15,7 +15,7 @@ def add_account(request):
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
-        return redirect('/')
+        return redirect('/home')
     password = request.POST['Password']
 
     pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
@@ -29,7 +29,7 @@ def login(request):
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
-        return redirect('/')
+        return redirect('/home')
     User = Users.objects.filter(email=request.POST["Email"])[0]
     if bcrypt.checkpw(request.POST['Password'].encode(), User.password.encode()):
         request.session['id'] = User.id
@@ -72,7 +72,7 @@ def add_order(request):
 
 def logout(request):
     request.session.flush()
-    return redirect('/')
+    return redirect('/home')
 
 def checkout(request):
     if 'id' not in request.session:
