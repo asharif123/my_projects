@@ -193,7 +193,7 @@ def account_info(request):
 
 def update_account(request):
     if 'id' not in request.session:
-        return redirect('/')
+        return redirect('/home')
     errors = Users.objects.account_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
