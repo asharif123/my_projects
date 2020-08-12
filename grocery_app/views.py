@@ -46,9 +46,10 @@ def welcome_page(request):
     
     context = {
         "products": Products.objects.all(),
-        "total_orders": total_orders
+        "total_orders": total_orders,
+        "user": user,
+        'liked_products': user.liked_products.all()
     }
-
 
     return render(request,'welcome.html',context)
 
@@ -58,14 +59,9 @@ def liked_product(request,id):
     user = Users.objects.get(id=request.session['id'])
     product = Products.objects.get(id=id)
     liked_product = product.users_who_like.add(user)
-    print(['*']*100)
-    for product in (user.liked_products.all()):
-        product.name
-    context = {
-        "user": user,
-        'liked_users': user.liked_products.all()
-    }
-    return render(request,'welcome.html',context)
+    return redirect('/welcome')
+
+    # return render(request,'welcome.html',context)
 
 def add_order(request):
     if 'id' not in request.session:
