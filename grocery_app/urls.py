@@ -15,6 +15,7 @@ urlpatterns = [
     path('order/add', views.add_order),
     path('logout', views.logout),
     path('like/<int:id>', views.liked_product),
+    path('unlike/<int:id>', views.unliked_product),
     path('noorani/checkout', views.checkout),
     path('delete/item', views.delete_product),
     path('noorani/delete/all', views.delete_all),

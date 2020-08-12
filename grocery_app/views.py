@@ -61,6 +61,14 @@ def liked_product(request,id):
     liked_product = product.users_who_like.add(user)
     return redirect('/welcome')
 
+def unliked_product(request,id):
+    if 'id' not in request.session:
+        return redirect('/home')
+    user = Users.objects.get(id=request.session['id'])
+    product = Products.objects.get(id=id)
+    liked_product = product.users_who_like.remove(user)
+    return redirect('/welcome')
+
     # return render(request,'welcome.html',context)
 
 def add_order(request):
