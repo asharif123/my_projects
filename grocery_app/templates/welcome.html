@@ -96,9 +96,12 @@
 
                                     </select>
                                         
-                                    <button type="submit" class="btn btn-sm btn-danger">ADD</button>
+                                    <button type="submit" class="btn btn-sm btn-danger">Add</button>
                                     <input type="hidden" id="name" name="product" value="{{product.id}}"> 
                                 </form>
+                                <br>
+                                {% comment %} <button type="submit" class="btn btn-sm btn-success">Like</button> {% endcomment %}
+                                <a href="/like/{{product.id}}" class="btn btn-success btn-sm active" role="button" aria-pressed="true">Like</a>
                             </div>
                         </div>      
                     </div> 
