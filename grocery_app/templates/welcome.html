@@ -101,7 +101,11 @@
                                 </form>
                                 <br>
                                 {% comment %} <button type="submit" class="btn btn-sm btn-success">Like</button> {% endcomment %}
-                                <a href="/like/{{product.id}}" class="btn btn-success btn-sm" role="button" aria-pressed="true">Like</a>
+                                {% if user in liked_users %}
+                                    <a href="/unlike/{{product.id}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Unlike</a>
+                                {% else %}
+                                    <a href="/like/{{product.id}}" class="btn btn-success btn-sm" role="button" aria-pressed="true">Like</a>
+                                {% endif %}
                             </div>
                         </div>      
                     </div> 
