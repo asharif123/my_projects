@@ -70,7 +70,17 @@ def unliked_product(request,id):
     return redirect('/welcome')
 
 def favorites(request):
-    return render(request,'favorite_items.html')
+    if 'id' not in request.session:
+        return redirect('/home')
+    else:
+        user = Users.objects.get(id=request.session['id'])
+    
+    context = {
+        "user": user,
+        'liked_products': user.liked_products.all()
+    }
+
+    return render(request,'favorite_items.html',context)
 
 def add_order(request):
     if 'id' not in request.session:

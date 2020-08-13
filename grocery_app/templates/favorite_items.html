@@ -37,17 +37,32 @@
             </nav>
         </div>
         <br>
-        <div class="col-md-4 text-white">
-            <h4>Welcome, {{user.name}}</h4>
-        </div>
+        <div class="container col-9">
+            <div class="row">
+                {% for product in liked_products %}
+                    <div class="card-deck mb-4">
+                    {% comment %} add dark backgorund to EACH item{% endcomment %}
+                        <div class="card mb-3 shadow-sm">
+                            <div class="card-header text-white">
+                                {% comment %} <img src={% static {{product.image}} %}></img> {% endcomment %}
+                                <img src="{{product.image.url}}">
 
+                                {% comment %} <img class="card-img-top" src="../../media/{{product.image}}"> {% endcomment %}
+                                {% comment %} <p>{{product.image}}</p> {% endcomment %}
 
-        <div class="col-6">
-            <br><br>
-            
+                            </div>
+                            <div class="card-body text-center">
+                                <ul class="list-unstyled text-center text-white">
+                                    <li>{{product.name}}</li>
+                                </ul>
 
-
- 
+                                <br>
+                                {% comment %} <button type="submit" class="btn btn-sm btn-success">Like</button> {% endcomment %}
+                            </div>
+                        </div>      
+                    </div> 
+                {% endfor %}
+            </div>
         </div>
 
       </div>
