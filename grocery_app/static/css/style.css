@@ -20,3 +20,7 @@
   .error {
     color: red;
   }
+
+  .favorites-card-deck {
+    background-color: tomato;
+  }

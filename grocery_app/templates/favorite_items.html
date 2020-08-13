@@ -18,7 +18,7 @@
       <div class="container">
         <div class="navbar col-12">
             <img src={% static "noorani.JPG" %}></img>
-
+            <br>
 
             <nav class="navbar navbar-expand-lg rounded bg-dark">
                     <div class="collapse navbar-collapse" id="navbarNav">
@@ -36,13 +36,14 @@
                     </div>
             </nav>
         </div>
+        <em><h1 class="text-center text-white">Favorites</h1></em>
         <br>
         <div class="container col-9">
             <div class="row">
                 {% for product in liked_products %}
-                    <div class="card-deck mb-4">
+                    <div class="favorites-card-deck text-center rounded">
                     {% comment %} add dark backgorund to EACH item{% endcomment %}
-                        <div class="card mb-3 shadow-sm">
+                        <div class="favorites-card-deck mb-3 rounded-circle">
                             <div class="card-header text-white">
                                 {% comment %} <img src={% static {{product.image}} %}></img> {% endcomment %}
                                 <img src="{{product.image.url}}">
@@ -51,9 +52,10 @@
                                 {% comment %} <p>{{product.image}}</p> {% endcomment %}
 
                             </div>
-                            <div class="card-body text-center">
+                            <div class="favorites-card-deck text-center rounded">
                                 <ul class="list-unstyled text-center text-white">
-                                    <li>{{product.name}}</li>
+                                    <br>
+                                    <strong><h6><li>{{product.name}}</li></h6></strong>
                                 </ul>
 
                                 <br>
