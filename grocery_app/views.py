@@ -69,7 +69,8 @@ def unliked_product(request,id):
     liked_product = product.users_who_like.remove(user)
     return redirect('/welcome')
 
-    # return render(request,'welcome.html',context)
+def favorites(request):
+    return render(request,'favorite_items.html')
 
 def add_order(request):
     if 'id' not in request.session:
@@ -102,12 +103,7 @@ def checkout(request):
     directions = json.loads(response)
     lattitude = (directions['routes'][0]['legs'][0]['end_location']['lat'])
     longitude = (directions['routes'][0]['legs'][0]['end_location']['lng'])
-    # print(lattitude,longitude)
-    # url to pull google marker to show user's location
-    # url = 'https://maps.googleapis.com/maps/api/js?key={}&callback=initMap'.format(api_key)
-    # print(url)
 
-    # print(directions['routes'][0]['legs'][0])
     products = []
     for order in user.orders_of_user.all():
         for product in order.product.all():

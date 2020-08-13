@@ -21,6 +21,7 @@ urlpatterns = [
     path('noorani/delete/all', views.delete_all),
     path('noorani/account', views.account_page),
     path('noorani/success', views.success),
+    path('noorani/favorites', views.favorites),
     path('account/info', views.account_info),
     path('noorani/account/update', views.update_account),
 # USING STRIPE API
