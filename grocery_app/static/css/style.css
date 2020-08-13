@@ -3,9 +3,14 @@
 .login {
     background-image: url("/static/groceries.JPG");
     background-size: 100%;
+    background-color: #76797b63;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+  }
+
+  .favorites {
+    background-color: #76797b63;
   }
 
   .welcome, .card-deck, .card, .card-body, .checkout, .account {
