@@ -27,7 +27,6 @@ urlpatterns = [
 # USING STRIPE API
     path('charge', views.charge),
     path('noorani/checkout/page', views.checkout_page)
-    # # path('noorani/favorite', views.favorite_items)
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
