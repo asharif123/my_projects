@@ -61,10 +61,10 @@
             <table class="table table-light table-bordered">
               <thead>
                 <tr>
-                  <th scope="col">Product</th>
-                  <th scope="col">Quantity</th>
-                  <th scope="col">Price/quantity</th>
-                  <th scope="col"></th>
+                  <th class="table_row" scope="col">Product</th>
+                  <th class="table_row" scope="col">Quantity</th>
+                  <th class="table_row" scope="col">Price/quantity</th>
+                  <th class="table_row" scope="col"></th>
                 </tr>
               </thead>
               <tbody>
@@ -73,7 +73,7 @@
                 <tr>
 
                       {% comment %} <th scope="row">1</th> {% endcomment %}
-                      <td>{{product.name}}</td>
+                      <td><img src="{{product.image.url}}"></td>
                       <td>{{order.quantity}}</td>
                       <td>${{product.price}}</td>
                       <td>                      

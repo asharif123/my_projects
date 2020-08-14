@@ -21,6 +21,12 @@
     color: red;
   }
 
+  .table_row {
+    background-color: red;
+    color: white;
+    font-family: sans-serif;
+  }
+
   .favorites-card-deck {
     background-color: tomato;
   }
