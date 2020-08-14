@@ -61,9 +61,9 @@
             <table class="table table-light table-bordered">
               <thead>
                 <tr>
-                  <th class="table_row" scope="col">Product</th>
-                  <th class="table_row" scope="col">Quantity</th>
-                  <th class="table_row" scope="col">Price/quantity</th>
+                  <th class="table_row text-center" scope="col">Item</th>
+                  <th class="table_row text-center" scope="col">Quantity</th>
+                  <th class="table_row text-center" scope="col">Price/quantity</th>
                   <th class="table_row" scope="col"></th>
                 </tr>
               </thead>
@@ -74,8 +74,8 @@
 
                       {% comment %} <th scope="row">1</th> {% endcomment %}
                       <td><img src="{{product.image.url}}"></td>
-                      <td>{{order.quantity}}</td>
-                      <td>${{product.price}}</td>
+                      <td><h5 class="text-center">{{order.quantity}}</h5></td>
+                      <td><h5 class="text-center">${{product.price}}</h5></td>
                       <td>                      
                         <form class="delete_form" action="/delete/item" method='POST' product='{{product.id}}'>
                           {% csrf_token %}
@@ -86,6 +86,24 @@
                 </tr>
                     {% endfor %}
                 {% endfor %}
+              <tr>
+                <td>
+                  <h6>Total (USD) + $10 shipping fee:</h6>
+                </td>
+                <td>
+                  
+                </td>
+                <td>
+                  
+                </td>
+                <td>
+                  <h5>${{total}}</h5>
+                </td>
+
+
+
+              </tr>
+
 
               </tbody>
              </table>
