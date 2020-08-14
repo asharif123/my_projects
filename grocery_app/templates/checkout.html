@@ -107,37 +107,6 @@
 
               </tbody>
              </table>
-          {% comment %} <div class="items_list">
-            <ul class="list-group mb-3">
-              {% for order in Orders %}
-                {% for product in order.product.all %}
-                  <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                      <h6 class="my-0">{{product.name}}</h6>
-                      <small class="text-muted">Quantity: {{order.quantity}} </small>
-                    </div>
-                    <span class="text-muted">${{product.price}}</span>
-                      <form class="delete_form" action="/delete/item" method='POST' product='{{product.id}}'>
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-danger sm">Delete</button>
-                        <input name="product_id" type="hidden" value="{{product.id}}">  
-                      </form>
-                  </li>
-                  {% endfor %}
-              {% endfor %}
-              <li class="list-group-item d-flex justify-content-between">
-                {%if total_orders > 0 %}
-                  <strong>Shipping Fee (USD): $10</strong>
-                {% endif %}
-              </li>
-
-              <li class="list-group-item d-flex justify-content-between">
-                {%if total_orders > 0 %}
-                  <h5>Total (USD) ${{total}}</h5>
-                {% endif %}
-              </li>
-            </ul>
-          </div> {% endcomment %}
 
         </div>
         {% comment %} use Google API to confirm address {% endcomment %}
