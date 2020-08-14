@@ -234,7 +234,6 @@ def checkout_page(request):
     context = {
         "user": Users.objects.get(id=request.session['id'])
     }
-
     return render(request,'checkout_page.html',context)
 
 
