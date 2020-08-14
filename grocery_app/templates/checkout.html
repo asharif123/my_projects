@@ -58,13 +58,13 @@
             <br><br>
             <h4 class="text-white">Total Items:  {{total_orders}}</h4>
             <br>
-            <table class="table table-dark">
+            <table class="table table-light table-bordered">
               <thead>
                 <tr>
                   <th scope="col">Product</th>
                   <th scope="col">Quantity</th>
-                  <th scope="col">Price</th>
-                  {% comment %} <th scope="col">Handle</th> {% endcomment %}
+                  <th scope="col">Price/quantity</th>
+                  <th scope="col"></th>
                 </tr>
               </thead>
               <tbody>
@@ -72,9 +72,10 @@
                     {% for product in order.product.all %}
                 <tr>
 
-                      <th scope="row">1</th>
+                      {% comment %} <th scope="row">1</th> {% endcomment %}
                       <td>{{product.name}}</td>
-                      <td>Otto</td>
+                      <td>{{order.quantity}}</td>
+                      <td>${{product.price}}</td>
                       <td>                      
                         <form class="delete_form" action="/delete/item" method='POST' product='{{product.id}}'>
                           {% csrf_token %}
