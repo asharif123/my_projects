@@ -45,11 +45,7 @@
                     {% comment %} add dark backgorund to EACH item{% endcomment %}
                         <div class="favorites-card-deck mb-3 rounded-circle">
                             <div class="card-header text-white">
-                                {% comment %} <img src={% static {{product.image}} %}></img> {% endcomment %}
                                 <img src="{{product.image.url}}">
-
-                                {% comment %} <img class="card-img-top" src="../../media/{{product.image}}"> {% endcomment %}
-                                {% comment %} <p>{{product.image}}</p> {% endcomment %}
 
                             </div>
                             <div class="favorites-card-deck text-center rounded">
