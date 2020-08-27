@@ -13,8 +13,19 @@
     background-color: #76797b63;
   }
 
-  .welcome, .card-deck, .card, .card-body, .checkout, .account {
+  .card-deck, .card, .card-body, .checkout, .account {
     background-color: #212529;
+
+  }
+
+  .welcome {
+    background-image: url("/static/grocery_items.jpg");
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+
   }
 
   .error {
