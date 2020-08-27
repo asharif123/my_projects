@@ -105,7 +105,7 @@
                                 </form>
                                 <br>
                                 {% comment %} <button type="submit" class="btn btn-sm btn-success">Like</button> {% endcomment %}
-                                {% if product not in liked_products %}
+                                {% if product not in user.liked_products.all %}
                                     <a href="/like/{{product.id}}" class="btn btn-success btn-sm" role="button" aria-pressed="true">Like</a>
                                 {% else %}
                                     <a href="/unlike/{{product.id}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Unlike</a>

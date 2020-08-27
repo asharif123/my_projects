@@ -39,16 +39,20 @@ def welcome_page(request):
 
     if 'id' not in request.session:
         total_orders = 0
+        user = 0
+        
+        
     else:
         user = Users.objects.get(id=request.session['id'])
         total_orders = len(user.orders_of_user.all())
+        # liked_products = user.liked_products.all()
 
     
     context = {
         "products": Products.objects.all(),
         "total_orders": total_orders,
-        "user": user,
-        'liked_products': user.liked_products.all()
+        "user": user
+        # 'liked_products': user.liked_products.all()
     }
 
     return render(request,'welcome.html',context)
