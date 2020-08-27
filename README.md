@@ -1,10 +1,10 @@
-# sudoku-solver
+# Noorani Project
 Hi, my name is Rémi LUX. I end my final year of Computer Vision Degree in Grenoble INP - Phelma, and I'm now engineer at Niryo.
 Welcome to my project  
 My algorithm is able to detect and to directly solve sudokus in VR
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/39727257/71028243-3b376900-210d-11ea-9e81-6ba1c7c27528.gif" width="500"/>
+<img src="C:\Users\Owner\Desktop\grocery_images\login.JPG" width="500"/>
 </p>
 
 
