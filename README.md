@@ -4,7 +4,7 @@ Welcome to my project
 My algorithm is able to detect and to directly solve sudokus in VR
 
 <p align="center">
-<img src="C:\Users\Owner\Desktop\grocery_images\login.JPG" width="500"/>
+![Alt text](C:/Users/Owner/Desktop/grocery_images.jpg "Optional title")
 </p>
 
 
