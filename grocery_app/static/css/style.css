@@ -13,12 +13,17 @@
     background-color: #76797b63;
   }
 
-  .card-deck, .card, .card-body, .checkout, .account {
+  .card-deck, .card, .card-body {
     background-color: #212529;
 
   }
 
-  .welcome {
+  .add_cart {
+    color: blue;
+    font-size: 40px;
+  }
+
+  .welcome, .checkout, .account {
     background-image: url("/static/grocery_items.jpg");
     background-size: 100%;
     background-position: center;
