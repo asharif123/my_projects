@@ -13,7 +13,7 @@
  - Python
  - Javascript (used to implement both Google Maps and Striple APIs)
  
- #Login Page
+# Login
  
  Here is the login page where user can either register or login with credentials before seeing the grocery items.
  
