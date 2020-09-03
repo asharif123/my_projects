@@ -23,4 +23,7 @@
 
 The user can see different South Asian grocery items to purchase and the user can favorite/unfavorite his or her items that get stored in Favorites link
 
-![welcome](https://user-images.githubusercontent.com/49471791/92183696-ffac0e80-ee03-11ea-8efe-31764bde776e.JPG)
+
+![welcome](https://user-images.githubusercontent.com/49471791/92183779-397d1500-ee04-11ea-8087-049162a7d95c.JPG)
+
+
