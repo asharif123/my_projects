@@ -15,6 +15,12 @@
  
 # Login
  
- Here is the login page where user can either register or login with credentials before seeing the grocery items.
+ Here is the login page where user can either register or login with credentials. In order to make purchases, user MUST login.
  
 ![login](https://user-images.githubusercontent.com/49471791/92183460-582edc00-ee03-11ea-8ddb-6568bed7a6df.JPG)
+
+# Welcome Page
+
+The user can see different South Asian grocery items to purchase and the user can favorite/unfavorite his or her items that get stored in Favorites link
+
+![welcome](https://user-images.githubusercontent.com/49471791/92183696-ffac0e80-ee03-11ea-8efe-31764bde776e.JPG)
