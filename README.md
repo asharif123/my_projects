@@ -50,6 +50,8 @@ User can see all his/her liked items
 
 User can see all items purchased in table format, Google APIs is used to confirm the user's delivery location where user can edit the shipping address.
 
+User can see shipping address on either Google Maps or has option to see on Google Earth.
+
 User can add more items to cart, proceed to checkout or cancel the entire order
 
 ![confirmation](https://user-images.githubusercontent.com/49471791/92185259-44d23f80-ee08-11ea-905e-eed87086ee04.JPG)
