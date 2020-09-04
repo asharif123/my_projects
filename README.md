@@ -56,3 +56,9 @@ User can add more items to cart, proceed to checkout or cancel the entire order
 
 ![confirmation](https://user-images.githubusercontent.com/49471791/92185259-44d23f80-ee08-11ea-905e-eed87086ee04.JPG)
 
+
+# Checkout 
+
+This was implemented using Stripe API. User can only enter credit card information that exists or else Stripe API will throw an error.
+
+![image](https://user-images.githubusercontent.com/49471791/92185522-08ebaa00-ee09-11ea-929c-59d71cc66243.png)
