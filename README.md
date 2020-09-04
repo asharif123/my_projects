@@ -37,8 +37,28 @@ User can edit his/her information
 
 ![account](https://user-images.githubusercontent.com/49471791/92184517-4a2e8a80-ee06-11ea-85b1-63c3d28bb39e.JPG)
 
+
 # Favorites
 
 User can see all his/her liked items
 
 ![favorites](https://user-images.githubusercontent.com/49471791/92184685-c5903c00-ee06-11ea-9066-37dda9e256b5.JPG)
+
+
+
+# Checkout Confirmation
+
+User can see all items purchased in table format, Google APIs is used to confirm the user's delivery location where user can edit the shipping address.
+
+User can see shipping address on either Google Maps or has option to see on Google Earth.
+
+User can add more items to cart, proceed to checkout or cancel the entire order
+
+![confirmation](https://user-images.githubusercontent.com/49471791/92185259-44d23f80-ee08-11ea-905e-eed87086ee04.JPG)
+
+
+# Checkout 
+
+This was implemented using Stripe API. User can only enter credit card information that exists or else Stripe API will throw an error.
+
+![image](https://user-images.githubusercontent.com/49471791/92185522-08ebaa00-ee09-11ea-929c-59d71cc66243.png)
