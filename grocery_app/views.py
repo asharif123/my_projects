@@ -57,6 +57,7 @@ def welcome_page(request):
 
     return render(request,'welcome.html',context)
 
+##candidate for AJAX
 def liked_product(request,id):
     if 'id' not in request.session:
         return redirect('/home')
@@ -65,6 +66,7 @@ def liked_product(request,id):
     liked_product = product.users_who_like.add(user)
     return redirect('/welcome')
 
+##candidate for AJAX
 def unliked_product(request,id):
     if 'id' not in request.session:
         return redirect('/home')
@@ -127,6 +129,7 @@ def checkout(request):
         quantities.append(order.quantity)
     total = 0
 
+##get the total price of EACH added product
     for i in range(len(products)):
         total += products[i].price*quantities[i]
     context = {
@@ -140,6 +143,7 @@ def checkout(request):
         
     return render(request,'checkout.html',context)
 
+# candidate for AJAX
 def delete_product(request):
     if 'id' not in request.session:
         return redirect('/home')
