@@ -7,7 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/static/css/style.css">
-
+    <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
 </head>
 <body class="welcome">
     <div class="logo col-12">
@@ -100,7 +100,7 @@
 
                                     </select>
                                         
-                                    <button type="submit" class="btn btn-sm btn-danger">Add</button>
+                                    <button type="submit" class="btn btn-sm btn-danger update-cart" data-product="{{product.id}}" data-action="add">Add</button>
                                     <input type="hidden" id="name" name="product" value="{{product.id}}"> 
                                 </form>
                                 <br>
